@@ -1,4 +1,13 @@
-import { Box, Button, Flex, Image, Text } from "@chakra-ui/react"
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  HStack,
+  Image,
+  Stack,
+  Text,
+} from "@chakra-ui/react"
 import { FcLikePlaceholder } from "react-icons/fc"
 import { BiMessageDots } from "react-icons/bi"
 
@@ -16,32 +25,30 @@ interface ThreadCard {
   is_liked: boolean
 }
 
-
-
 export const ThreadCard = (props: ThreadCard) => {
   return (
     <>
       <Flex padding="40px">
         <Image
+          boxSize="80px"
+          borderRadius="full"
+          width="260px"
+          objectFit="cover"
           src={props.author_picture}
-          style={{
-            width: "260px",
-            height: "80px",
-            marginTop: "15px",
-            borderRadius: "50%",
-          }}
         />
-        <Box marginLeft="20px" marginTop="20px">
+        <Grid marginLeft="20px" marginTop="20px">
           <Flex>
             <Text fontWeight="bold">{props.author_full_name}</Text>
             <Text marginLeft="10px">@{props.author_username}</Text>
             <Text marginLeft="10px">{props.posted_at}</Text>
           </Flex>
           <Text noOfLines={[1, 2, 3]}>{props.content}</Text>
-          
+
           <Image
             src={props.image}
-            style={{ width: "300px", height: "400px", marginTop: "15px" }}
+            width="300px"
+            height="400px"
+            marginTop="15px"
           />
           <Box style={{ marginTop: "20px" }}>
             <Button
@@ -55,7 +62,7 @@ export const ThreadCard = (props: ThreadCard) => {
               <Text marginLeft="5px">{props.replies_count} Replies</Text>
             </Button>
           </Box>
-        </Box>
+        </Grid>
       </Flex>
     </>
   )

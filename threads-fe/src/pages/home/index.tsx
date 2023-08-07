@@ -5,6 +5,7 @@ import { useState } from "react"
 export default function Home() {
   const [thread] = useState(threads)
 
+
   return (
     <>
       {thread.map((item, index) => {
