@@ -2,83 +2,230 @@ import {
   Heading,
   Avatar,
   Box,
-  Center,
   Image,
   Flex,
   Text,
   Stack,
   Button,
   useColorModeValue,
-  Grid,
+  VStack,
+  HStack,
+  GridItem,
 } from "@chakra-ui/react"
 
 export default function ProfilePage() {
   return (
-    // <Center py={6}>
-    <Box w="300vh" overflow={"hidden"} padding="40px">
-      <Image
-        h={"120px"}
-        w={"full"}
-        src={
-          "https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
-        }
-        objectFit="cover"
-        alt="#"
-      />
-
-      <Flex justifyContent="space-between" mt={-12}>
-        <Avatar
-          size={"xl"}
-          src={
-            "https://images.unsplash.com/photo-1681863177225-5fa13305ea95?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-          }
-          css={{
-            border: "2px solid white",
-          }}
-        />
-        {/* <Center> */}
-        <Button marginTop="48px">Edit Profile</Button>
-        {/* </Center> */}
-      </Flex>
-
-      <Box p={6}>
-        <Stack spacing={0} mb={5}>
-          <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
-            John Doe
-          </Heading>
-          <Text color={"gray.500"}>Frontend Developer</Text>
-        </Stack>
-
-        <Stack direction={"row"} justify={"center"} spacing={6}>
-          <Stack spacing={0} align={"center"}>
-            <Text fontWeight={600}>23k</Text>
-            <Text fontSize={"sm"} color={"gray.500"}>
-              Followers
-            </Text>
-          </Stack>
-          <Stack spacing={0} align={"center"}>
-            <Text fontWeight={600}>23k</Text>
-            <Text fontSize={"sm"} color={"gray.500"}>
-              Followers
-            </Text>
-          </Stack>
-        </Stack>
-
-        <Button
-          w={"full"}
-          mt={8}
-          bg={useColorModeValue("#151f21", "gray.900")}
-          color={"white"}
-          rounded={"md"}
-          _hover={{
-            transform: "translateY(-2px)",
-            boxShadow: "lg",
-          }}
+    <VStack marginTop="30px" marginLeft="40px" position="relative">
+      <GridItem
+        w="60vh"
+        backgroundColor="#f5f7f6"
+        padding="5"
+        borderRadius="10"
+      >
+        <Heading
+          fontSize={"2xl"}
+          fontWeight={500}
+          fontFamily={"body"}
+          marginBottom="2"
         >
-          Follow
-        </Button>
-      </Box>
-    </Box>
-    // </Center>
+          My profile
+        </Heading>
+        <Image
+          h={"120px"}
+          w={"full"}
+          borderRadius="8px"
+          src={
+            "https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+          }
+          objectFit="cover"
+          alt="#"
+        />
+
+        <Flex justifyContent="space-between" mt={-12}>
+          <Avatar
+            size={"xl"}
+            src={
+              "https://images.unsplash.com/photo-1681863177225-5fa13305ea95?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+            }
+            css={{
+              border: "2px solid white",
+            }}
+          />
+          <Button
+            marginTop="50px"
+            borderRadius="20px"
+            height="35px"
+            backgroundColor="#d9dedc"
+          >
+            Edit Profile
+          </Button>
+        </Flex>
+
+        <Box p={6}>
+          <Stack spacing={0} mb={5}>
+            <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
+              Lalalala
+            </Heading>
+            <Text color={"gray.500"}>@lalala</Text>
+            <Text color={"gray.500"}>Frontend Developer</Text>
+          </Stack>
+
+          <HStack alignItems="start">
+            <Text fontWeight={600}>23k</Text>
+            <Text fontSize={"md"} color={"gray.500"}>
+              Followers
+            </Text>
+            <Text fontWeight={600}>23k</Text>
+            <Text fontSize={"md"} color={"gray.500"}>
+              Followers
+            </Text>
+          </HStack>
+        </Box>
+      </GridItem>
+
+      <GridItem
+        w="60vh"
+        overflow={"hidden"}
+        backgroundColor="#f5f7f6"
+        padding="2"
+        borderRadius="10"
+      >
+        <Box p={6}>
+          <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
+            Sugested for you
+          </Heading>
+          <HStack>
+            <Flex>
+              <Image
+                // boxSize="50px"
+                height="50px"
+                borderRadius="50"
+                width="50px"
+                objectFit="cover"
+                marginTop="25px"
+                src="https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+              />
+
+              <VStack marginTop="6" marginLeft="5">
+                <Text fontWeight="bold">lalalla</Text>
+                <Text>@lalalla</Text>
+              </VStack>
+            </Flex>
+            <Button
+              marginLeft="10em"
+              w="30"
+              mt={8}
+              bg={useColorModeValue("#151f21", "gray.900")}
+              color={"white"}
+              borderRadius="20"
+              _hover={{
+                transform: "translateY(-2px)",
+                boxShadow: "lg",
+              }}
+            >
+              Following
+            </Button>
+          </HStack>
+
+          <HStack>
+            <Flex>
+              <Image
+                // boxSize="50px"
+                height="50px"
+                borderRadius="50"
+                width="50px"
+                objectFit="cover"
+                marginTop="25px"
+                src="https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+              />
+
+              <VStack marginTop="6" marginLeft="5">
+                <Text fontWeight="bold">lalalla</Text>
+                <Text>@lalalla</Text>
+              </VStack>
+            </Flex>
+            <Button
+              marginLeft="11em"
+              w="30"
+              mt={8}
+              bg={useColorModeValue("#151f21", "gray.900")}
+              color={"white"}
+              borderRadius="20"
+              _hover={{
+                transform: "translateY(-2px)",
+                boxShadow: "lg",
+              }}
+            >
+              Follow
+            </Button>
+          </HStack>
+
+          <HStack>
+            <Flex>
+              <Image
+                // boxSize="50px"
+                height="50px"
+                borderRadius="50"
+                width="50px"
+                objectFit="cover"
+                marginTop="25px"
+                src="https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+              />
+
+              <VStack marginTop="6" marginLeft="5">
+                <Text fontWeight="bold">lalalla</Text>
+                <Text>@lalalla</Text>
+              </VStack>
+            </Flex>
+            <Button
+              marginLeft="11em"
+              w="30"
+              mt={8}
+              bg={useColorModeValue("#151f21", "gray.900")}
+              color={"white"}
+              borderRadius="20"
+              _hover={{
+                transform: "translateY(-2px)",
+                boxShadow: "lg",
+              }}
+            >
+              Follow
+            </Button>
+          </HStack>
+          <HStack>
+            <Flex>
+              <Image
+                // boxSize="50px"
+                height="50px"
+                borderRadius="50"
+                width="50px"
+                objectFit="cover"
+                marginTop="25px"
+                src="https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+              />
+
+              <VStack marginTop="6" marginLeft="5">
+                <Text fontWeight="bold">lalalla</Text>
+                <Text>@lalalla</Text>
+              </VStack>
+            </Flex>
+            <Button
+              marginLeft="11em"
+              w="30"
+              mt={8}
+              bg={useColorModeValue("#151f21", "gray.900")}
+              color={"white"}
+              borderRadius="20"
+              _hover={{
+                transform: "translateY(-2px)",
+                boxShadow: "lg",
+              }}
+            >
+              Follow
+            </Button>
+          </HStack>
+        </Box>
+      </GridItem>
+    </VStack>
   )
 }

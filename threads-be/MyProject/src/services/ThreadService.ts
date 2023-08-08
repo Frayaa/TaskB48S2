@@ -40,6 +40,10 @@ class ThreadService {
       const thread = this.threadRepository.create({
         content: data.content,
         image: data.image,
+        full_name: data.full_name,
+        username: data.username,
+        like: data.like,
+        replies: data.replies
       })
 
       const createdThread = this.threadRepository.save(thread)
@@ -81,6 +85,18 @@ class ThreadService {
       }
       if (data.image != "") {
         threads.image = data.image
+      }
+      if (data.full_name != "") {
+        threads.full_name = data.full_name
+      }
+      if (data.username != "") {
+        threads.username = data.username
+      }
+      if (data.like != "") {
+        threads.like = data.like
+      }
+      if (data.replies != "") {
+        threads.replies = data.replies
       }
 
       const updateThread = this.threadRepository.save(threads)

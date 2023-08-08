@@ -3,30 +3,34 @@ import {
   ButtonGroup,
   Container,
   Heading,
-  Stack,
   VStack,
 } from "@chakra-ui/react"
 import { NavLink } from "react-router-dom"
+import { AiFillHome, AiOutlineSearch } from "react-icons/ai"
+import { RiUserFollowFill } from "react-icons/ri"
+import { CgProfile } from "react-icons/cg"
 
 const SideBar = () => {
   return (
     <>
       <Container
         width="300px"
-        height="max-content"
+        position="fixed"
         marginLeft="20px"
         marginTop="50px"
       >
-        <Heading>Circle</Heading>
+        <Heading marginLeft="5">Circle</Heading>
         <VStack float="left">
-          <ButtonGroup flexDirection="column" gap="5" marginTop="20px">
+          <ButtonGroup flexDirection="column" gap="3" marginTop="20px">
             <NavLink
               to="/"
               //   style={({ isActive }) => ({
               //     backgroundColor: isActive ? "blue" : "grey",
               //   })}
             >
-              <Button backgroundColor="white">Home</Button>
+              <Button backgroundColor="white" marginLeft="2">
+                <AiFillHome style={{ marginRight: "10" }} /> Home
+              </Button>
             </NavLink>
 
             <NavLink
@@ -35,7 +39,9 @@ const SideBar = () => {
               //     backgroundColor: isActive ? "blue" : "grey",
               //   })}
             >
-              <Button backgroundColor="white">Search</Button>
+              <Button backgroundColor="white">
+                <AiOutlineSearch style={{ marginRight: "10" }} /> Search
+              </Button>
             </NavLink>
 
             <NavLink
@@ -44,7 +50,9 @@ const SideBar = () => {
               //     backgroundColor: isActive ? "blue" : "grey",
               //   })}
             >
-              <Button backgroundColor="white">Follows</Button>
+              <Button backgroundColor="white">
+                <RiUserFollowFill style={{ marginRight: "10" }} /> Follow
+              </Button>
             </NavLink>
 
             <NavLink
@@ -53,7 +61,9 @@ const SideBar = () => {
               //     backgroundColor: isActive ? "blue" : "grey",
               //   })}
             >
-              <Button backgroundColor="white">Profile</Button>
+              <Button backgroundColor="white">
+                <CgProfile style={{ marginRight: "10" }} /> Profile
+              </Button>
             </NavLink>
             <NavLink
               to="/post"
@@ -61,7 +71,7 @@ const SideBar = () => {
               //     backgroundColor: isActive ? "blue" : "grey",
               //   })}
             >
-              <Button backgroundColor="green" width="40vh">
+              <Button backgroundColor="#70b582" width="40vh">
                 Create Post
               </Button>
             </NavLink>

@@ -6,7 +6,19 @@ export class Thread {
   id: number
 
   @Column()
+  full_name: string
+
+  @Column()
+  username: string
+
+  @Column()
   content: string
+
+  @Column()
+  like: number
+
+  @Column()
+  replies: number
 
   @Column({ nullable: true })
   image: string
