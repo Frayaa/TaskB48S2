@@ -14,10 +14,14 @@ const SideBar = () => {
   return (
     <>
       <Container
-        width="300px"
+        width="42vh"
         position="fixed"
-        marginLeft="20px"
+        marginLeft="30px"
         marginTop="50px"
+        backgroundColor="#f5f7f6"
+      p="5"
+        borderRadius="10"
+        h="44vh"
       >
         <Heading marginLeft="5">Circle</Heading>
         <VStack float="left">
@@ -28,7 +32,7 @@ const SideBar = () => {
               //     backgroundColor: isActive ? "blue" : "grey",
               //   })}
             >
-              <Button backgroundColor="white" marginLeft="2">
+              <Button backgroundColor="#f5f7f6" marginLeft="2">
                 <AiFillHome style={{ marginRight: "10" }} /> Home
               </Button>
             </NavLink>
@@ -39,7 +43,7 @@ const SideBar = () => {
               //     backgroundColor: isActive ? "blue" : "grey",
               //   })}
             >
-              <Button backgroundColor="white">
+              <Button backgroundColor="#f5f7f6">
                 <AiOutlineSearch style={{ marginRight: "10" }} /> Search
               </Button>
             </NavLink>
@@ -50,7 +54,7 @@ const SideBar = () => {
               //     backgroundColor: isActive ? "blue" : "grey",
               //   })}
             >
-              <Button backgroundColor="white">
+              <Button backgroundColor="#f5f7f6">
                 <RiUserFollowFill style={{ marginRight: "10" }} /> Follow
               </Button>
             </NavLink>
@@ -61,7 +65,7 @@ const SideBar = () => {
               //     backgroundColor: isActive ? "blue" : "grey",
               //   })}
             >
-              <Button backgroundColor="white">
+              <Button backgroundColor="#f5f7f6">
                 <CgProfile style={{ marginRight: "10" }} /> Profile
               </Button>
             </NavLink>
@@ -71,7 +75,7 @@ const SideBar = () => {
               //     backgroundColor: isActive ? "blue" : "grey",
               //   })}
             >
-              <Button backgroundColor="#70b582" width="40vh">
+              <Button backgroundColor="#70b582" width="34vh">
                 Create Post
               </Button>
             </NavLink>

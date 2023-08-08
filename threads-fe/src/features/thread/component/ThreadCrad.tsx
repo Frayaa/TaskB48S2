@@ -4,11 +4,14 @@ import {
   Container,
   Flex,
   Grid,
+  Heading,
   Image,
   Text,
 } from "@chakra-ui/react"
 import { FcLikePlaceholder } from "react-icons/fc"
 import { BiMessageDots } from "react-icons/bi"
+import { Link } from "react-router-dom"
+import { useState } from "react"
 // import SideBar from "@/features/sidebar/SideBar"
 
 interface ThreadCard {
@@ -26,6 +29,17 @@ interface ThreadCard {
 }
 
 export const ThreadCard = (props: ThreadCard) => {
+  const [isLiked, setIsLiked] = useState(props.is_liked)
+  const [likeCount, setLikeCount] = useState(props.likes_count)
+
+  const handleLikeClick = () => {
+    if (isLiked) {
+      setLikeCount(likeCount - 1)
+    } else {
+      setLikeCount(likeCount + 1)
+    }
+    setIsLiked(!isLiked)
+  }
   return (
     <>
       {/* <Container > */}
@@ -33,19 +47,23 @@ export const ThreadCard = (props: ThreadCard) => {
       {/* <VStack>{SideBar()}</VStack> */}
 
       {/* <VStack> */}
-      {/* <Heading>Home</Heading> */}
-      {/* <Box>
+
+
+       {/* <Heading>Home</Heading> 
+     <Flex marginTop="5" bg="#f2f5f5" padding="2" borderRadius="15">
               <Image
-                boxSize="80px"
+                h="60px"
                 borderRadius="full"
-                width="260px"
+                width="60px"
                 objectFit="cover"
                 src={props.author_picture}
               />
+              <Text padding="20px">
+
               What's Hapenning?
-            </Box> */}
-            
-      <Container marginLeft="46vh" width="500vh" position='relative' >
+              </Text>
+            </Flex>  */}
+       <Container marginLeft="46vh" width="500vh" position="relative" marginBottom="10">
         <Flex marginTop="20px">
           <Image
             // boxSize="50px"
@@ -57,11 +75,13 @@ export const ThreadCard = (props: ThreadCard) => {
             src={props.author_picture}
           />
           <Grid marginLeft="20px" marginTop="20px">
-            <Flex>
-              <Text fontWeight="bold">{props.author_full_name}</Text>
-              <Text marginLeft="10px">@{props.author_username}</Text>
-              <Text marginLeft="10px">{props.posted_at}</Text>
-            </Flex>
+            <Link to={`/thread/${props.id}`}>
+              <Flex>
+                <Text fontWeight="bold">{props.author_full_name}</Text>
+                <Text marginLeft="10px">@{props.author_username}</Text>
+                <Text marginLeft="10px">{props.posted_at}</Text>
+              </Flex>
+            </Link>
             <Text noOfLines={[1, 2, 3]}>{props.content}</Text>
 
             <Image
@@ -72,12 +92,13 @@ export const ThreadCard = (props: ThreadCard) => {
             />
             <Box style={{ marginTop: "20px" }}>
               <Button
-                style={{
-                  backgroundColor: props.is_liked ? "red" : "#fcfcfc",
-                }}
+                colorScheme={isLiked ? "red" : "grey"} // Menggunakan colorScheme Chakra UI
+                onClick={handleLikeClick}
+                _hover={{ bg: isLiked ? "red" : "gray" }}
+               
               >
                 <FcLikePlaceholder />
-                <Text textAlign="justify">{props.likes_count}</Text>
+                <Text textAlign="justify">{likeCount}</Text>
               </Button>
               <Button width="150px" marginLeft="10px" backgroundColor="#fcfcfc">
                 <BiMessageDots />
@@ -87,6 +108,7 @@ export const ThreadCard = (props: ThreadCard) => {
           </Grid>
         </Flex>
       </Container>
+
       {/* </VStack> */}
       {/* </Flex> */}
       {/* </Container> */}
