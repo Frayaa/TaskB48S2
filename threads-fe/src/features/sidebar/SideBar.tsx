@@ -1,63 +1,78 @@
-// import {
-//   Button,
-//   ButtonGroup,
-//   Container,
-//   Heading,
-//   Stack,
-//   VStack,
-// } from "@chakra-ui/react"
-// import { NavLink } from "react-router-dom"
+import {
+  Button,
+  ButtonGroup,
+  Container,
+  Heading,
+  Stack,
+  VStack,
+} from "@chakra-ui/react"
+import { NavLink } from "react-router-dom"
 
-// const SideBar = () => {
-//   return (
-//     <>
-//       <Container width="300px" height="max-content" backgroundColor="blue">
-//         <Heading>Circle</Heading>
-//         <VStack float="left">
-//           <ButtonGroup flexDirection="column" gap="5" marginTop="20px">
-//             <NavLink
-//               to="/"
-//               //   style={({ isActive }) => ({
-//               //     backgroundColor: isActive ? "blue" : "grey",
-//               //   })}
-//             >
-//               <Button>Home</Button>
-//             </NavLink>
+const SideBar = () => {
+  return (
+    <>
+      <Container
+        width="300px"
+        height="max-content"
+        marginLeft="20px"
+        marginTop="50px"
+      >
+        <Heading>Circle</Heading>
+        <VStack float="left">
+          <ButtonGroup flexDirection="column" gap="5" marginTop="20px">
+            <NavLink
+              to="/"
+              //   style={({ isActive }) => ({
+              //     backgroundColor: isActive ? "blue" : "grey",
+              //   })}
+            >
+              <Button backgroundColor="white">Home</Button>
+            </NavLink>
 
-//             <NavLink
-//               to="/search"
-//               //   style={({ isActive }) => ({
-//               //     backgroundColor: isActive ? "blue" : "grey",
-//               //   })}
-//             >
-//               <Button>Search</Button>
-//             </NavLink>
+            <NavLink
+              to="/search"
+              //   style={({ isActive }) => ({
+              //     backgroundColor: isActive ? "blue" : "grey",
+              //   })}
+            >
+              <Button backgroundColor="white">Search</Button>
+            </NavLink>
 
-//             <NavLink
-//               to="/follow"
-//               //   style={({ isActive }) => ({
-//               //     backgroundColor: isActive ? "blue" : "grey",
-//               //   })}
-//             >
-//               <Button>Follows</Button>
-//             </NavLink>
+            <NavLink
+              to="/follow"
+              //   style={({ isActive }) => ({
+              //     backgroundColor: isActive ? "blue" : "grey",
+              //   })}
+            >
+              <Button backgroundColor="white">Follows</Button>
+            </NavLink>
 
-//             <NavLink
-//               to="/profile"
-//               //   style={({ isActive }) => ({
-//               //     backgroundColor: isActive ? "blue" : "grey",
-//               //   })}
-//             >
-//               <Button>Profile</Button>
-//             </NavLink>
-//           </ButtonGroup>
-//         </VStack>
-//       </Container>
-//     </>
-//   )
-// }
+            <NavLink
+              to="/profile"
+              //   style={({ isActive }) => ({
+              //     backgroundColor: isActive ? "blue" : "grey",
+              //   })}
+            >
+              <Button backgroundColor="white">Profile</Button>
+            </NavLink>
+            <NavLink
+              to="/post"
+              //   style={({ isActive }) => ({
+              //     backgroundColor: isActive ? "blue" : "grey",
+              //   })}
+            >
+              <Button backgroundColor="green" width="40vh">
+                Create Post
+              </Button>
+            </NavLink>
+          </ButtonGroup>
+        </VStack>
+      </Container>
+    </>
+  )
+}
 
-// export default SideBar
+export default SideBar
 
 // import {
 //   Box,
@@ -120,4 +135,3 @@
 // }
 
 // export default Sidebar
-

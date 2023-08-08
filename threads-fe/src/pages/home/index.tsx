@@ -1,7 +1,8 @@
-// import SideBar from "@/features/sidebar/SideBar"
+import ProfilePage from "@/features/profilPage/Profile"
+import SideBar from "@/features/sidebar/SideBar"
 import { ThreadCard } from "@/features/thread/component/ThreadCrad"
 import threads from "@/utils/fakedata/threads.json"
-// import { Flex, VStack } from "@chakra-ui/react"
+import { Flex, VStack } from "@chakra-ui/react"
 import { useState } from "react"
 
 export default function Home() {
@@ -9,9 +10,10 @@ export default function Home() {
 
   return (
     <>
-      {/* <Flex>
-        <VStack>{SideBar()}</VStack>
-        <VStack> */}
+      <Flex>
+        <SideBar />
+      
+        <VStack>
           {thread.map((item, index) => {
             return (
               <>
@@ -31,8 +33,9 @@ export default function Home() {
               </>
             )
           })}
-        {/* </VStack>
-      </Flex> */}
+        </VStack>
+        <ProfilePage />
+      </Flex>
     </>
   )
 }
