@@ -1,4 +1,3 @@
-import FormThread from "@/components/formModal/formModal"
 import ProfilePage from "@/features/profilPage/Profile"
 import SideBar from "@/features/sidebar/SideBar"
 import { IThreadCard, ThreadCard } from "@/features/thread/component/ThreadCrad"
@@ -99,15 +98,16 @@ export default function Home() {
     <>
       <Container marginLeft="-8">
         <Grid templateColumns="repeat(2, 1fr)">
-          <SideBar />
+          <SideBar  />
           {/* <FormThread isOpen={isModalOpen} onClose={closeModal} /> */}
 
-          <VStack>
-            <Box marginTop="5" padding="2" borderRadius="15" marginLeft="80">
+          <VStack borderRight={"1px"}>
+            <Box marginTop="5" padding="2" borderRadius="15" marginLeft="80" >
               <form onSubmit={handleSubmit}>
-                <FormControl>
+                <FormControl >
                   <FormLabel>content</FormLabel>
                   <Input
+                  w="50vh"
                     name="content"
                     placeholder="content"
                     value={form.content}
@@ -123,7 +123,7 @@ export default function Home() {
                     onChange={changeHandler}
                   ></Input>
                 </FormControl>
-                <Button type="submit">Submit</Button>
+                <Button type="submit" marginTop="5px">Submit</Button>
               </form>
             </Box>
 

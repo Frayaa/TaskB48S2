@@ -25,7 +25,7 @@ export default function ProfilePage() {
     <VStack marginTop="30px" marginLeft="30px" position="relative">
       <GridItem
         w="50vh"
-        backgroundColor="#f5f7f6"
+        backgroundColor="#505250"
         padding="5"
         borderRadius="10"
       >
@@ -92,7 +92,7 @@ export default function ProfilePage() {
 
       <GridItem
         w="50vh"
-        backgroundColor="#f5f7f6"
+        backgroundColor="#505250"
         padding="5"
         borderRadius="10"
       >
@@ -235,7 +235,7 @@ export default function ProfilePage() {
 
       <GridItem
         w="50vh"
-        backgroundColor="#f5f7f6"
+        backgroundColor="#505250"
         padding="5"
         borderRadius="10"
       >

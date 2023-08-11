@@ -1,39 +1,37 @@
+import { IRegister } from "@/interfaces/user"
+import { API } from "@/lib/api"
+import { ViewIcon } from "@chakra-ui/icons"
 import {
+  Box,
   Button,
+  Center,
+  Container,
   FormControl,
-  FormLabel,
+  Heading,
   Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
+  InputGroup,
+  Stack,
   Text,
-  useDisclosure,
+  VStack,
+  useToast,
 } from "@chakra-ui/react"
+import { ChangeEvent, FormEvent, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 
-interface IModalRegister {
-  isOpen: boolean
-  onClose: () => void
-}
 
-interface IRegister
 
-const Register = ({ isOpen, onClose }: IModalRegister) => {
+const Register = () => {
   // const { isOpen, onClose } = useDisclosure()
 
-  const [form, setForm] = useState<IThreadPost>({
-    content: "",
-    image: "",
-  })
+  const toast = useToast()
+  const navigate = useNavigate()
 
-  const fetchData = async () => {
-    const response = await API.get("/threads")
-    console.log("ini data", response.data)
-    setThread(response.data)
-  }
+  const [form, setForm] = useState<IRegister>({
+    full_name: "",
+    username: "",
+    email: "",
+    password: "",
+  })
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -42,51 +40,109 @@ const Register = ({ isOpen, onClose }: IModalRegister) => {
     })
   }
 
+  const handleRegister = async (event: FormEvent) => {
+    event.preventDefault()
+    try {
+      const response = await API.post("/auth/register", form)
+      console.log(response.data.data)
+      navigate("/login")
+    } catch (err) {
+      console.log(err)
+      toast({
+        title: "Login Gagal",
+        status: "error",
+      })
+    }
+  }
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Register</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <FormControl>
-            <FormLabel>
-              Full Name
-              <Input name="full_name" />
-            </FormLabel>
-          </FormControl>
-          <FormControl>
-            <FormLabel>
-              Username
-              <Input name="username" />
-            </FormLabel>
-          </FormControl>
-          <FormControl>
-            <FormLabel>
-              Email
-              <Input name="email" />
-            </FormLabel>
-          </FormControl>
-          <FormControl>
-            <FormLabel>
-              Password
-              <Input name="password" />
-            </FormLabel>
-          </FormControl>
-        </ModalBody>
-        <ModalFooter>
-          <Button
-            type={"submit"}
-            bgColor="#5dcfb8"
-            color={"white"}
-            mt="5"
+    <>
+ 
+     <Container
+       
+        maxW="full"
+        maxH="full"
+        centerContent
+        justifyContent="center"
+        marginTop="20vh"
+      >
+        <Box m={10}  width="50vh">
+          <Heading color="#3dad5b" fontSize={"3xl"} mb="5px">
+            Circle
+          </Heading>
+          <Text fontWeight="bold" fontSize="2xl" mb="12px">
            
-          >
-            Register
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+            Create account Circle
+          </Text>
+          <VStack spacing={5}>
+            <form>
+              <FormControl>
+                <Input
+                  width="50vh"
+                  
+                  name="full_name"
+                  onChange={changeHandler}
+                  placeholder="Fullname*"
+                />
+              </FormControl>
+              <FormControl>
+                <Input
+                  width="50vh"
+                  mt="4"
+                  name="username"
+                  onChange={changeHandler}
+                  placeholder="Username*"
+                />
+              </FormControl>
+              <FormControl>
+                <Input
+                  width="50vh"
+                  mt="4"
+                  name="email"
+                  type="email"
+                  onChange={changeHandler}
+                  placeholder="Email*"
+                />
+              </FormControl>
+              <FormControl mt="4">
+                <InputGroup>
+                  <Input
+                    name="password"
+                    
+                    onChange={changeHandler}
+                    placeholder="Password*"
+                  />
+                  
+                </InputGroup>
+                 
+              </FormControl>
+              <Center>
+                <Button
+                  type={"submit"}
+                  bgColor="#3dad5b"
+                  color={"white"}
+                  mt="5"
+                  w={"full"}
+                  borderRadius="20px"
+                  onClick={handleRegister}
+                  fontSize="20px"
+                >
+                  Register
+                </Button>
+              </Center>
+            </form>
+          </VStack>
+          <Stack>
+            <Text align={"center"} mt="20px" mr="2">
+              Already have account?
+              <Link to="/login"  style={{ color: "#3dad5b" }} >
+                Login
+              </Link>
+            </Text>
+          </Stack>
+        </Box>
+      </Container>
+      </>
   )
 }
 

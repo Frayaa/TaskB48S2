@@ -25,15 +25,6 @@ import { useState } from "react"
 
 const SideBar = () => {
 
-  const [isModalOpen, setIsModalOpen] = useState(false); // State untuk mengontrol modal
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
   
   return (
     <>
@@ -42,10 +33,11 @@ const SideBar = () => {
         position="fixed"
         marginLeft="30px"
         marginTop="50px"
-        backgroundColor="#f5f7f6"
+        backgroundColor="#505250"
       p="5"
         borderRadius="10"
         h="46vh"
+       
       >
         <Heading marginLeft="5">Circle</Heading>
         <VStack float="left">
@@ -56,7 +48,7 @@ const SideBar = () => {
               //     backgroundColor: isActive ? "blue" : "grey",
               //   })}
             >
-              <Button backgroundColor="#f5f7f6" marginLeft="2">
+              <Button backgroundColor="#505250" marginLeft="2">
                 <AiFillHome style={{ marginRight: "10" }} /> Home
               </Button>
             </NavLink>
@@ -67,7 +59,7 @@ const SideBar = () => {
               //     backgroundColor: isActive ? "blue" : "grey",
               //   })}
             >
-              <Button backgroundColor="#f5f7f6">
+              <Button backgroundColor="#505250">
                 <AiOutlineSearch style={{ marginRight: "10" }} /> Search
               </Button>
             </NavLink>
@@ -78,7 +70,7 @@ const SideBar = () => {
               //     backgroundColor: isActive ? "blue" : "grey",
               //   })}
             >
-              <Button backgroundColor="#f5f7f6">
+              <Button backgroundColor="#505250">
                 <RiUserFollowFill style={{ marginRight: "10" }} /> Follow
               </Button>
             </NavLink>
@@ -89,54 +81,18 @@ const SideBar = () => {
               //     backgroundColor: isActive ? "blue" : "grey",
               //   })}
             >
-              <Button backgroundColor="#f5f7f6">
+              <Button backgroundColor="#505250">
                 <CgProfile style={{ marginRight: "10" }} /> Profile
               </Button>
             </NavLink>
            
-              <Button backgroundColor="#70b582" width="34vh"  onClick={openModal}>
+              <Button backgroundColor="#3dad5b" width="34vh" >
                 Create Post
               </Button>
           </ButtonGroup>
         </VStack>
       </Container>
 
-      {/* <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Create Post</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-          <form onSubmit={handleSubmit}>
-                <FormControl>
-                  <FormLabel>content</FormLabel>
-                  <Input
-                    name="content"
-                    placeholder="content"
-                    value={form.content}
-                    onChange={changeHandler}
-                  ></Input>
-                </FormControl>
-                <FormControl>
-                  <FormLabel>Image</FormLabel>
-                  <Input
-                    name="image"
-                    placeholder="image"
-                    value={form.image}
-                    onChange={changeHandler}
-                  ></Input>
-                </FormControl>
-                <Button type="submit">Submit</Button>
-              </form>
-          </ModalBody>
-          <ModalFooter >
-            <Button onClick={onSubmit}>Submit</Button>
-            <Button variant="ghost" onClick={closeModal}>
-              Cancel
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal> */}
     </>
   )
 }

@@ -13,5 +13,6 @@ router.patch("/thread/update/:id", ThreadController.update)
 
 router.post("/auth/register", AuthController.register)
 router.post("/auth/login", AuthController.login)
+router.get("/auth/check", authenticate, AuthController.check)
 
 export default router

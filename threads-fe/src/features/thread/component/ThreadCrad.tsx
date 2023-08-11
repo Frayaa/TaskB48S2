@@ -25,9 +25,6 @@ export interface IUser {
 export interface IThreadCard {
   //mirip struct golang
   id: number
-  // author_picture?: string
-  // author_full_name?: string
-  // author_username?: string
   user?: IUser
   posted_at?: string
   content?: string
@@ -38,8 +35,9 @@ export interface IThreadCard {
 }
 
 export const ThreadCard = (props: IThreadCard) => {
+  
   const [isLiked, setIsLiked] = useState(props.is_liked)
-  const [likeCount, setLikeCount] = useState(props.likes_count)
+  const [likeCount, setLikeCount] = useState(props.likes_count || 0)
   const [thread, setThread] = useState()
   const { id } = useParams()
 
@@ -87,8 +85,9 @@ export const ThreadCard = (props: IThreadCard) => {
         width="500vh"
         position="relative"
         marginBottom="10"
+        
       >
-        <Flex marginTop="20px">
+        <Flex marginTop="20px" >
           <Image
             // boxSize="50px"
             height="60px"
@@ -100,7 +99,7 @@ export const ThreadCard = (props: IThreadCard) => {
             src={props.user?.profile_picture}
           />
           <Grid marginLeft="20px" marginTop="20px">
-            <Link to={`/thread/${id}`}>
+            <Link to={`/thread/${props.id}`}>
               <Flex>
                 <Text fontWeight="bold">{props.user?.full_name}</Text>
                 <Text marginLeft="10px">@{props.user?.username}</Text>
@@ -117,14 +116,14 @@ export const ThreadCard = (props: IThreadCard) => {
             />
             <Box style={{ marginTop: "20px" }}>
               <Button
-                colorScheme={isLiked ? "red" : "grey"} // Menggunakan colorScheme Chakra UI
+                bg={isLiked ? "red" : "grey"} // Menggunakan colorScheme Chakra UI
                 onClick={handleLikeClick}
                 _hover={{ bg: isLiked ? "red" : "gray" }}
               >
                 <FcLikePlaceholder />
                 <Text textAlign="justify">{likeCount}</Text>
               </Button>
-              <Button width="150px" marginLeft="10px" backgroundColor="#fcfcfc">
+              <Button width="150px" marginLeft="10px" >
                 <BiMessageDots />
                 <Text marginLeft="5px">{props.replies_count} Replies</Text>
               </Button>
