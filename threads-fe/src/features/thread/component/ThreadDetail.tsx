@@ -12,10 +12,22 @@ import {
 } from "@chakra-ui/react"
 import { FcLikePlaceholder } from "react-icons/fc"
 import { BiMessageDots, BiSolidImageAdd } from "react-icons/bi"
+import { useEffect, useState } from "react"
+import { API } from "@/lib/api"
 
 const ThreadDetail = () => {
   const { id } = useParams()
   console.log("id", id)
+  // const [threadDetail, setThreadDetail] = useState(null);
+
+  // const getThreadById = async () => {
+  //   const response = await API.get(`/thread/${id}`)
+  //   setThreadDetail(response.data)
+  // }
+
+  //   useEffect(() => {
+  //     getThreadById()
+  //   }, [])
 
   // const threadId = id;
   if (id === undefined) {

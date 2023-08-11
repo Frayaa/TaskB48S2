@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, Timestamp } from "typeorm"
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  Timestamp,
+  ManyToOne,
+} from "typeorm"
+import { User } from "./User"
 
 @Entity({ name: "threads" })
 export class Thread {
@@ -6,19 +13,8 @@ export class Thread {
   id: number
 
   @Column()
-  full_name: string
-
-  @Column()
-  username: string
-
-  @Column()
   content: string
 
-  @Column()
-  like: number
-
-  @Column()
-  replies: number
 
   @Column({ nullable: true })
   image: string
@@ -26,4 +22,9 @@ export class Thread {
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   posted_at: Date
 
+  @ManyToOne(() => User, (user) => user.thread, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  user: User
 }

@@ -1,17 +1,27 @@
 import { AppDataSource } from "./data-source"
 import * as express from "express"
 import { Request, Response } from "express"
-import router from "./route/threadRoute"
+import * as cors from 'cors'
+import router from "./routes/routes"
+
+
+// const threadRoute = require("./routes/threadRoute")
+// const AuthRoute = require("./routes/AuthRoute")
+
 
 AppDataSource.initialize()
   .then(async () => {
     const app = express()
     const port = 5000
 
+
     // const router = express.Router()
     app.use(express.json())
 
+    app.use(cors())
+
     app.use("/api/v1", router)
+ 
 
     // router.get("/", (req: Request, res: Response) => {
     //   res.send("Hello World")

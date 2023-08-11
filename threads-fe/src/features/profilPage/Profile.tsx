@@ -11,11 +11,18 @@ import {
   VStack,
   HStack,
   GridItem,
+  Grid,
 } from "@chakra-ui/react"
+import {
+  AiFillFacebook,
+  AiFillGithub,
+  AiFillInstagram,
+  AiFillLinkedin,
+} from "react-icons/ai"
 
 export default function ProfilePage() {
   return (
-    <VStack marginTop="30px" marginLeft="40px" position="relative">
+    <VStack marginTop="30px" marginLeft="30px" position="relative">
       <GridItem
         w="50vh"
         backgroundColor="#f5f7f6"
@@ -99,7 +106,7 @@ export default function ProfilePage() {
                 // boxSize="50px"
                 height="50px"
                 borderRadius="50"
-                width="50px"
+                width="120px"
                 objectFit="cover"
                 marginTop="25px"
                 src="https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
@@ -111,8 +118,8 @@ export default function ProfilePage() {
               </VStack>
             </Flex>
             <Button
-              marginLeft="10em"
-              w="30"
+              marginLeft="8em"
+              w="34"
               mt={8}
               bg={useColorModeValue("#151f21", "gray.900")}
               color={"white"}
@@ -132,7 +139,7 @@ export default function ProfilePage() {
                 // boxSize="50px"
                 height="50px"
                 borderRadius="50"
-                width="50px"
+                width="120px"
                 objectFit="cover"
                 marginTop="25px"
                 src="https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
@@ -144,7 +151,7 @@ export default function ProfilePage() {
               </VStack>
             </Flex>
             <Button
-              marginLeft="11em"
+              marginLeft="8em"
               w="30"
               mt={8}
               bg={useColorModeValue("#151f21", "gray.900")}
@@ -165,7 +172,7 @@ export default function ProfilePage() {
                 // boxSize="50px"
                 height="50px"
                 borderRadius="50"
-                width="50px"
+                width="120px"
                 objectFit="cover"
                 marginTop="25px"
                 src="https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
@@ -177,7 +184,7 @@ export default function ProfilePage() {
               </VStack>
             </Flex>
             <Button
-              marginLeft="11em"
+              marginLeft="8em"
               w="30"
               mt={8}
               bg={useColorModeValue("#151f21", "gray.900")}
@@ -197,7 +204,7 @@ export default function ProfilePage() {
                 // boxSize="50px"
                 height="50px"
                 borderRadius="50"
-                width="50px"
+                width="120px"
                 objectFit="cover"
                 marginTop="25px"
                 src="https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
@@ -209,7 +216,7 @@ export default function ProfilePage() {
               </VStack>
             </Flex>
             <Button
-              marginLeft="11em"
+              marginLeft="8em"
               w="30"
               mt={8}
               bg={useColorModeValue("#151f21", "gray.900")}
@@ -223,6 +230,26 @@ export default function ProfilePage() {
               Follow
             </Button>
           </HStack>
+        </Box>
+      </GridItem>
+
+      <GridItem
+        w="50vh"
+        backgroundColor="#f5f7f6"
+        padding="5"
+        borderRadius="10"
+      >
+        <Box p={6}>
+          <Heading fontSize={"2xl"} fontWeight={400} fontFamily={"body"}>
+            Developed by Your Name 
+            <Flex>
+            <AiFillGithub />
+              <AiFillLinkedin />
+              <AiFillFacebook />
+              <AiFillInstagram />
+            </Flex>
+          </Heading>
+          <Text>Powered by DumbWays Indonesia . #1 Coding Bootcamp</Text>
         </Box>
       </GridItem>
     </VStack>

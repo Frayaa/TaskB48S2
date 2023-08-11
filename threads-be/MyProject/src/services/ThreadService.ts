@@ -2,20 +2,20 @@ import { Repository } from "typeorm"
 import { Thread } from "../entities/Threads"
 import { AppDataSource } from "../data-source"
 import { Request, Response } from "express"
+import { createdThreadSchema } from "../utils/validators/thread"
 
 class ThreadService {
- 
   private readonly threadRepository: Repository<Thread> =
     AppDataSource.getRepository(Thread)
 
   async find(req: Request, res: Response) {
     try {
-      const threads = await this.threadRepository.find()
+      const threads = await this.threadRepository.find({
+        relations: ["user"],
+      })
       return res.status(200).json(threads)
     } catch (err) {
-      return res.status(500).json({
-        message: err.message,
-      })
+      return res.status(500).json("Server error")
     }
   }
   async findOne(req: Request, res: Response) {
@@ -25,33 +25,35 @@ class ThreadService {
         where: {
           id: id,
         },
+        relations: ["user"],
       })
       return res.status(200).json(threads)
     } catch (err) {
-      return res.status(500).json({
-        message: err.message,
-      })
+      return res.status(500).json("Server error")
     }
   }
 
   async create(req: Request, res: Response) {
     try {
       const data = req.body
+
+      const { error, value } = createdThreadSchema.validate(data)
+
+      if (error) {
+        return res.status(400).json({
+          error: error.details[0].message,
+        })
+      }
+
       const thread = this.threadRepository.create({
-        content: data.content,
-        image: data.image,
-        full_name: data.full_name,
-        username: data.username,
-        like: data.like,
-        replies: data.replies
+        content: value.content,
+        image: value.image,
       })
 
       const createdThread = this.threadRepository.save(thread)
       return res.status(200).json(thread)
     } catch (err) {
-      return res.status(500).json({
-        message: err.message,
-      })
+      return res.status(500).json("Server error")
     }
   }
   async delete(req: Request, res: Response) {
@@ -61,12 +63,10 @@ class ThreadService {
       const deleteThread = this.threadRepository.delete(id)
 
       return res.status(200).json({
-        message: "Thread Telah dihapus"
+        message: "Thread Telah dihapus",
       })
     } catch (err) {
-      return res.status(500).json({
-        message: err.message,
-      })
+      return res.status(500).json("Server error")
     }
   }
   async update(req: Request, res: Response) {
@@ -78,6 +78,10 @@ class ThreadService {
         },
       })
 
+      if (!threads) {
+        return res.status(500).json("Thread Id not found")
+      }
+
       const data = req.body
 
       if (data.content != "") {
@@ -86,28 +90,14 @@ class ThreadService {
       if (data.image != "") {
         threads.image = data.image
       }
-      if (data.full_name != "") {
-        threads.full_name = data.full_name
-      }
-      if (data.username != "") {
-        threads.username = data.username
-      }
-      if (data.like != "") {
-        threads.like = data.like
-      }
-      if (data.replies != "") {
-        threads.replies = data.replies
-      }
 
       const updateThread = this.threadRepository.save(threads)
 
       return res.status(200).json({
-        message: "Thread Telah di update"
+        message: "Thread Telah di update",
       })
     } catch (err) {
-      return res.status(500).json({
-        message: err.message,
-      })
+      return res.status(500).json("Server error")
     }
   }
 }

@@ -2,15 +2,39 @@ import {
   Button,
   ButtonGroup,
   Container,
+  FormControl,
+  FormLabel,
   Heading,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   VStack,
 } from "@chakra-ui/react"
 import { NavLink } from "react-router-dom"
 import { AiFillHome, AiOutlineSearch } from "react-icons/ai"
 import { RiUserFollowFill } from "react-icons/ri"
 import { CgProfile } from "react-icons/cg"
+import { useState } from "react"
+
+
 
 const SideBar = () => {
+
+  const [isModalOpen, setIsModalOpen] = useState(false); // State untuk mengontrol modal
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  
   return (
     <>
       <Container
@@ -21,7 +45,7 @@ const SideBar = () => {
         backgroundColor="#f5f7f6"
       p="5"
         borderRadius="10"
-        h="44vh"
+        h="46vh"
       >
         <Heading marginLeft="5">Circle</Heading>
         <VStack float="left">
@@ -69,19 +93,50 @@ const SideBar = () => {
                 <CgProfile style={{ marginRight: "10" }} /> Profile
               </Button>
             </NavLink>
-            <NavLink
-              to="/post"
-              //   style={({ isActive }) => ({
-              //     backgroundColor: isActive ? "blue" : "grey",
-              //   })}
-            >
-              <Button backgroundColor="#70b582" width="34vh">
+           
+              <Button backgroundColor="#70b582" width="34vh"  onClick={openModal}>
                 Create Post
               </Button>
-            </NavLink>
           </ButtonGroup>
         </VStack>
       </Container>
+
+      {/* <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Create Post</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+          <form onSubmit={handleSubmit}>
+                <FormControl>
+                  <FormLabel>content</FormLabel>
+                  <Input
+                    name="content"
+                    placeholder="content"
+                    value={form.content}
+                    onChange={changeHandler}
+                  ></Input>
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Image</FormLabel>
+                  <Input
+                    name="image"
+                    placeholder="image"
+                    value={form.image}
+                    onChange={changeHandler}
+                  ></Input>
+                </FormControl>
+                <Button type="submit">Submit</Button>
+              </form>
+          </ModalBody>
+          <ModalFooter >
+            <Button onClick={onSubmit}>Submit</Button>
+            <Button variant="ghost" onClick={closeModal}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal> */}
     </>
   )
 }
