@@ -4,8 +4,11 @@ import {
   Column,
   Timestamp,
   OneToMany,
+ 
+  ManyToOne,
 } from "typeorm"
 import { Thread } from "./Threads"
+import { Like } from "./likes"
 
 @Entity({ name: "users" })
 export class User {
@@ -35,4 +38,10 @@ export class User {
     onUpdate: "CASCADE"
   })
   thread: Thread[]
+
+  @OneToMany(() => Like, (like) => like.user, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+  })
+  like: Like[]
 }

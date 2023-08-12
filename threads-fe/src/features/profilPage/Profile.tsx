@@ -22,7 +22,7 @@ import {
 
 export default function ProfilePage() {
   return (
-    <VStack marginTop="30px" marginLeft="30px" position="relative">
+    <VStack marginTop="30px" marginLeft="20px" position="relative">
       <GridItem
         w="50vh"
         backgroundColor="#505250"
@@ -101,7 +101,7 @@ export default function ProfilePage() {
             Sugested for you
           </Heading>
           <HStack>
-            <Flex>
+            {/* <Flex> */}
               <Image
                 // boxSize="50px"
                 height="50px"
@@ -116,10 +116,11 @@ export default function ProfilePage() {
                 <Text fontWeight="bold">lalalla</Text>
                 <Text>@lalalla</Text>
               </VStack>
-            </Flex>
+            {/* </Flex> */}
+            
             <Button
-              marginLeft="8em"
-              w="34"
+              marginLeft="3em"
+              w="40"
               mt={8}
               bg={useColorModeValue("#151f21", "gray.900")}
               color={"white"}
@@ -134,7 +135,7 @@ export default function ProfilePage() {
           </HStack>
 
           <HStack>
-            <Flex>
+            {/* <Flex> */}
               <Image
                 // boxSize="50px"
                 height="50px"
@@ -149,10 +150,10 @@ export default function ProfilePage() {
                 <Text fontWeight="bold">lalalla</Text>
                 <Text>@lalalla</Text>
               </VStack>
-            </Flex>
+            {/* </Flex> */}
             <Button
-              marginLeft="8em"
-              w="30"
+              marginLeft="3em"
+              w="40"
               mt={8}
               bg={useColorModeValue("#151f21", "gray.900")}
               color={"white"}
@@ -167,7 +168,7 @@ export default function ProfilePage() {
           </HStack>
 
           <HStack>
-            <Flex>
+            {/* <Flex > */}
               <Image
                 // boxSize="50px"
                 height="50px"
@@ -182,10 +183,10 @@ export default function ProfilePage() {
                 <Text fontWeight="bold">lalalla</Text>
                 <Text>@lalalla</Text>
               </VStack>
-            </Flex>
+            {/* </Flex> */}
             <Button
-              marginLeft="8em"
-              w="30"
+              marginLeft="3em"
+              w="40"
               mt={8}
               bg={useColorModeValue("#151f21", "gray.900")}
               color={"white"}
@@ -199,7 +200,7 @@ export default function ProfilePage() {
             </Button>
           </HStack>
           <HStack>
-            <Flex>
+            {/* <Flex> */}
               <Image
                 // boxSize="50px"
                 height="50px"
@@ -214,10 +215,10 @@ export default function ProfilePage() {
                 <Text fontWeight="bold">lalalla</Text>
                 <Text>@lalalla</Text>
               </VStack>
-            </Flex>
+            {/* </Flex> */}
             <Button
-              marginLeft="8em"
-              w="30"
+            marginLeft="3em"
+              w="40"
               mt={8}
               bg={useColorModeValue("#151f21", "gray.900")}
               color={"white"}
