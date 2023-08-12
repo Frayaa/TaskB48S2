@@ -8,8 +8,8 @@ import { useEffect, useState } from "react"
 import { API, setAuthToken } from "./lib/api"
 
 export default function App() {
-  const [isloading, setIsLoading] = useState<boolean>(true)
-  const navigate = useNavigate()
+  // const [isloading, setIsLoading] = useState<boolean>(true)
+  // const navigate = useNavigate()
 
   const authCheck = async () => {
     try {
@@ -31,7 +31,7 @@ export default function App() {
   return (
     <>
       <BrowserRouter>
-        {isloading ? null : (
+        {/* {isloading ? null : ( */}
           <Routes>
             <Route element={<NotFound />} path="/404"></Route>
             <Route element={<Home />} path="/"></Route>
@@ -40,7 +40,7 @@ export default function App() {
             <Route element={<Login />} path="/login"></Route>
             {/* <Route element={<Register />} path="/register"></Route> */}
           </Routes>
-        )}
+        {/* )} */}
       </BrowserRouter>
     </>
   )

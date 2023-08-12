@@ -27,7 +27,7 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
 import { Link, useNavigate } from "react-router-dom"
 import Register from "../register/Register"
 import { ILogin } from "@/interfaces/user"
-import { API } from "@/lib/api"
+import { API, setAuthToken } from "@/lib/api"
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -53,8 +53,9 @@ const Login = () => {
     try {
       const response = await API.post("/auth/login", form)
       console.log(response.data.data)
+      localStorage.setItem("token", response.data)
+      setAuthToken(localStorage.token)
 
-      // setAuthoken(localStorage.token)
       toast({
         title: "Login success",
         status: "success",
@@ -71,19 +72,17 @@ const Login = () => {
   return (
     <>
       <Container
-       
         maxW="full"
         maxH="full"
         centerContent
         justifyContent="center"
         marginTop="25vh"
       >
-        <Box m={10}  width="50vh">
+        <Box m={10} width="50vh">
           <Heading color="#3dad5b" fontSize={"3xl"} mb="5px">
             Circle
           </Heading>
           <Text fontWeight="bold" fontSize="2xl" mb="12px">
-           
             Login to Circle{" "}
           </Text>
           <VStack spacing={5}>
@@ -148,7 +147,7 @@ const Login = () => {
           <Stack>
             <Text align={"center"} mt="20px" mr="2">
               Don't have an account yet?
-              <Link to="/register" style={{ color: "#3dad5b" }} >
+              <Link to="/register" style={{ color: "#3dad5b" }}>
                 Create Account
               </Link>
             </Text>
