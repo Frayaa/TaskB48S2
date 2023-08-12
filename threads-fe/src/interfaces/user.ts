@@ -1,3 +1,5 @@
+import { IUser } from "@/features/thread"
+
 export interface ILogin {
   email: string
   password: string
@@ -18,3 +20,4 @@ export interface IAUTH {
   profile_picture: string
   description: string
 }
+
