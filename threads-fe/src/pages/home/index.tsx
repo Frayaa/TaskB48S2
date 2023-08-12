@@ -23,27 +23,22 @@ interface IThreadPost {
 export default function Home() {
   // const [thread] = useState(threads)
 
-  // const [isModalOpen, setIsModalOpen] = useState(false); // State untuk mengontrol modal
-
-  // const openModal = () => {
-  //   setIsModalOpen(true);
-  // };
-
-  // const closeModal = () => {
-  //   setIsModalOpen(false);
-  // };
-
   const toast = useToast()
-  const [thread, setThread] = useState<IThreadCard[]>()
+  const [thread, setThread] = useState<IThreadCard[]>([])
   const [form, setForm] = useState<IThreadPost>({
     content: "",
     image: "",
   })
+  
 
   const fetchData = async () => {
-    const response = await API.get("/threads")
-    console.log("ini data", response.data)
-    setThread(response.data)
+    try {
+      const response = await API.get("/threads")
+      console.log("ini data", response.data.data)
+      setThread(response.data)
+    } catch (err) {
+      console.log(err, "error fetching")
+    }
   }
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -52,14 +47,6 @@ export default function Home() {
       [event.target.name]: event.target.value,
     })
   }
-
-  // const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = event.target
-  //   setForm({
-  //     ...form,
-  //     [name]: value,
-  //   })
-  // }
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
@@ -98,16 +85,16 @@ export default function Home() {
     <>
       <Container marginLeft="-8">
         <Grid templateColumns="repeat(2, 1fr)">
-          <SideBar  />
+          <SideBar />
           {/* <FormThread isOpen={isModalOpen} onClose={closeModal} /> */}
 
           <VStack borderRight={"1px"}>
-            <Box marginTop="5" padding="2" borderRadius="15" marginLeft="80" >
+            <Box marginTop="5" padding="2" borderRadius="15" marginLeft="80">
               <form onSubmit={handleSubmit}>
-                <FormControl >
+                <FormControl>
                   <FormLabel>content</FormLabel>
                   <Input
-                  w="50vh"
+                    w="50vh"
                     name="content"
                     placeholder="content"
                     value={form.content}
@@ -123,11 +110,16 @@ export default function Home() {
                     onChange={changeHandler}
                   ></Input>
                 </FormControl>
-                <Button type="submit" marginTop="5px">Submit</Button>
+                <Button type="submit" marginTop="5px">
+                  Submit
+                </Button>
               </form>
             </Box>
 
             {/* <Heading>Home</Heading>  */}
+
+            {/* <ThreadCard
+            threads={thread}/> */}
 
             {thread?.map((item, index) => {
               return (

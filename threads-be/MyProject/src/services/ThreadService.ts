@@ -3,6 +3,7 @@ import { Thread } from "../entities/Threads"
 import { AppDataSource } from "../data-source"
 import { Request, Response } from "express"
 import { createdThreadSchema } from "../utils/validators/thread"
+import { useParams } from "react-router-dom"
 
 class ThreadService {
   private readonly threadRepository: Repository<Thread> =
@@ -35,9 +36,9 @@ class ThreadService {
 
   async create(req: Request, res: Response) {
     try {
-      const data = req.body
+      const { content, image } = req.body
 
-      const { error, value } = createdThreadSchema.validate(data)
+      const { error, value } = createdThreadSchema.validate({ content, image })
 
       if (error) {
         return res.status(400).json({
@@ -53,7 +54,7 @@ class ThreadService {
       const createdThread = this.threadRepository.save(thread)
       return res.status(200).json(thread)
     } catch (err) {
-      return res.status(500).json("Server error")
+      return res.status(500).json({ err: err.message })
     }
   }
   async delete(req: Request, res: Response) {

@@ -35,10 +35,10 @@ export interface IThreadCard {
 }
 
 export const ThreadCard = (props: IThreadCard) => {
-  
+  // console.log(props, "Prpop")
+
   const [isLiked, setIsLiked] = useState(props.is_liked)
   const [likeCount, setLikeCount] = useState(props.likes_count || 0)
-  const [thread, setThread] = useState()
   const { id } = useParams()
 
   const handleLikeClick = () => {
@@ -50,14 +50,8 @@ export const ThreadCard = (props: IThreadCard) => {
     setIsLiked(!isLiked)
   }
 
-  const getThreadById = async () => {
-    const response = await API.get(`/thread/${id}`)
-    setThread(response.data)
-
-    useEffect(() => {
-      getThreadById()
-    }, [])
-  }
+ 
+  
   return (
     <>
       {/* <Container > */}
@@ -80,14 +74,16 @@ export const ThreadCard = (props: IThreadCard) => {
               What's Hapenning?
               </Text>
             </Flex>  */}
+            {/* thread.map(item, id => {
+              
+            }) */}
       <Container
         marginLeft="48vh"
         width="500vh"
         position="relative"
         marginBottom="10"
-        
       >
-        <Flex marginTop="20px" >
+        <Flex marginTop="20px">
           <Image
             // boxSize="50px"
             height="60px"
@@ -116,14 +112,14 @@ export const ThreadCard = (props: IThreadCard) => {
             />
             <Box style={{ marginTop: "20px" }}>
               <Button
-                bg={isLiked ? "red" : "grey"} // Menggunakan colorScheme Chakra UI
+                bg={isLiked ? "red" : "grey"} 
                 onClick={handleLikeClick}
                 _hover={{ bg: isLiked ? "red" : "gray" }}
               >
                 <FcLikePlaceholder />
                 <Text textAlign="justify">{likeCount}</Text>
               </Button>
-              <Button width="150px" marginLeft="10px" >
+              <Button width="150px" marginLeft="10px">
                 <BiMessageDots />
                 <Text marginLeft="5px">{props.replies_count} Replies</Text>
               </Button>

@@ -6,20 +6,28 @@ import Login from "./pages/login/Login"
 import Register from "./pages/register/Register"
 import { useEffect, useState } from "react"
 import { API, setAuthToken } from "./lib/api"
+import { useDispatch } from "react-redux"
+import { AUTH_CHECK } from "./stores/rootReducer"
 
 export default function App() {
-  // const [isloading, setIsLoading] = useState<boolean>(true)
+  const [isloading, setIsLoading] = useState<boolean>(false)
   // const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const authCheck = async () => {
     try {
+      setIsLoading(true)
       setAuthToken(localStorage.token)
       const response = await API.get("/auth/check")
       console.log("ini auth token", response)
-      setIsLoading(false)
+      dispatch(AUTH_CHECK(response.data.user))
+      if (response) {
+        setIsLoading(false)
+      }
     } catch (err) {
       localStorage.removeItem("token")
-      navigate("/login")
+      setIsLoading(false)
+      // navigate("/login")
       console.log(err, "auth error")
     }
   }
@@ -28,10 +36,12 @@ export default function App() {
     authCheck()
   }, [])
 
+  
+
   return (
     <>
       <BrowserRouter>
-        {/* {isloading ? null : ( */}
+        {isloading ? null : (
           <Routes>
             <Route element={<NotFound />} path="/404"></Route>
             <Route element={<Home />} path="/"></Route>
@@ -40,7 +50,7 @@ export default function App() {
             <Route element={<Login />} path="/login"></Route>
             {/* <Route element={<Register />} path="/register"></Route> */}
           </Routes>
-        {/* )} */}
+        )}
       </BrowserRouter>
     </>
   )

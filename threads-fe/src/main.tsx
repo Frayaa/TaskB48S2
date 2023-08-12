@@ -9,6 +9,9 @@ import {
   extendBaseTheme,
   extendTheme,
 } from "@chakra-ui/react"
+import { Provider } from "react-redux"
+import rootReducer from "./stores/rootReducer.ts"
+import { configureStore} from "@reduxjs/toolkit"
 
 const color: Colors = {
   brand: {
@@ -23,10 +26,17 @@ const config: ThemeConfig = {
 
 const theme = extendTheme({ color, config })
 
+const store = configureStore({
+  reducer: rootReducer
+})
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+    <Provider store={store}>
+
     <ChakraProvider theme={theme}>
       <App />
     </ChakraProvider>
+    </Provider>
   </React.StrictMode>
 )

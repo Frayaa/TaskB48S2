@@ -28,6 +28,8 @@ import { Link, useNavigate } from "react-router-dom"
 import Register from "../register/Register"
 import { ILogin } from "@/interfaces/user"
 import { API, setAuthToken } from "@/lib/api"
+import { useDispatch } from "react-redux"
+import { AUTH_LOGIN } from "@/stores/rootReducer"
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -35,6 +37,7 @@ const Login = () => {
   const [isOpen, setIsOpen] = useState(false)
   const toast = useToast()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const [form, setForm] = useState<ILogin>({
     email: "",
@@ -52,9 +55,15 @@ const Login = () => {
     event.preventDefault()
     try {
       const response = await API.post("/auth/login", form)
-      console.log(response.data.data)
-      localStorage.setItem("token", response.data)
+      console.log(response.data, "APANi")
+      localStorage.setItem("token", response.data.token)
       setAuthToken(localStorage.token)
+      // dispatch(AUTH_LOGIN({
+      //   id: response.data.data.id,
+      //   full_name: response.data.data.full_name,
+      //   username: response.data.data.username,
+      //   email: response.data.data.email
+      // }))
 
       toast({
         title: "Login success",
@@ -64,7 +73,7 @@ const Login = () => {
     } catch (err) {
       console.log(err)
       toast({
-        title: "Login Gagal",
+        title: "Email/Password is wrong",
         status: "error",
       })
     }

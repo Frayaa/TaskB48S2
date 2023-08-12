@@ -6,10 +6,10 @@ import authenticate from "../middlewares/authMiddleware"
 const router = express.Router()
 
 router.get("/threads", ThreadController.find)
-router.get("/thread/:id", ThreadController.findOne)
-router.post("/thread", ThreadController.create)
-router.delete("/thread/:id", ThreadController.delete)
-router.patch("/thread/update/:id", ThreadController.update)
+router.get("/thread/:id", authenticate, ThreadController.findOne)
+router.post("/thread", authenticate, ThreadController.create)
+router.delete("/thread/:id", authenticate, ThreadController.delete)
+router.patch("/thread/update/:id", authenticate, ThreadController.update)
 
 router.post("/auth/register", AuthController.register)
 router.post("/auth/login", AuthController.login)

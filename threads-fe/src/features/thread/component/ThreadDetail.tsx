@@ -14,27 +14,32 @@ import { FcLikePlaceholder } from "react-icons/fc"
 import { BiMessageDots, BiSolidImageAdd } from "react-icons/bi"
 import { useEffect, useState } from "react"
 import { API } from "@/lib/api"
-import { IThreadCard} from "@/features/thread/component/ThreadCrad"
+import { IThreadCard } from "@/features/thread/component/ThreadCrad"
 
 const ThreadDetail = () => {
   const { id } = useParams()
+  const [idThreads, setIdThreads] = useState<IThreadCard[]>([])
   const [threadDetail, setThreadDetail] = useState<IThreadCard[]>([])
+  
 
-  const getThreadById = async () => {
-    const response = await API.get(`/threads`)
+  const getThreadById = async (id: any) => {
+    const response = await API.get(`/thread/${id}`)
+    console.log(response.data, "P")
     setThreadDetail(response.data)
+    setIdThreads(id)
   }
 
   useEffect(() => {
-    getThreadById()
-  }, [])
+    getThreadById(id)
+  }, [id])
+
 
   // const threadId = id;
-  if (id === undefined) {
+  if (idThreads === undefined) {
     return <Text>Thread ID not provided</Text>
   }
 
-  const threads = threadDetail.find((thread) => thread.id === Number(id))
+  // const threads = threadDetail.find((thread) => thread.id === Number(idThreads))
 
   if (!threadDetail) {
     return <Text>Thread Not Found</Text>
@@ -50,18 +55,18 @@ const ThreadDetail = () => {
           width="500px"
           objectFit="cover"
           marginTop="25px"
-          src={threads?.user?.profile_picture}
+          src={threadDetail[0]?.user?.profile_picture}
         />
         <Grid marginLeft="20px" marginTop="20px">
           <Flex>
-            <Text fontWeight="bold">{threads?.user?.full_name}</Text>
-            <Text marginLeft="10px">@{threads?.user?.username}</Text>
-            <Text marginLeft="10px">{threads?.posted_at}</Text>
+            <Text fontWeight="bold">{threadDetail[0]?.user?.full_name}</Text>
+            <Text marginLeft="10px">@{threadDetail[0]?.user?.username}</Text>
+            <Text marginLeft="10px">{threadDetail[0]?.posted_at}</Text>
           </Flex>
-          <Text noOfLines={[1, 2, 3]}>{threads?.content}</Text>
+          <Text noOfLines={[1, 2, 3]}>{threadDetail[0]?.content}</Text>
 
           <Image
-            src={threads?.image}
+            src={threadDetail[0]?.image}
             width="300px"
             height="400px"
             marginTop="15px"
@@ -75,7 +80,7 @@ const ThreadDetail = () => {
               width="50px"
               objectFit="cover"
               marginTop="25px"
-              src={threads?.user?.profile_picture}
+              src={threadDetail[0]?.user?.profile_picture}
             />
 
             <Box marginTop="10" marginLeft="5">
@@ -92,15 +97,15 @@ const ThreadDetail = () => {
           <Box style={{ marginTop: "20px" }}>
             <Button
               style={{
-                backgroundColor: threads?.is_liked ? "red" : "#fcfcfc",
+                backgroundColor: threadDetail[0]?.is_liked ? "red" : "#fcfcfc",
               }}
             >
               <FcLikePlaceholder />
-              <Text textAlign="justify">{threads?.likes_count}</Text>
+              <Text textAlign="justify">{threadDetail[0]?.likes_count}</Text>
             </Button>
             <Button width="150px" marginLeft="10px" backgroundColor="#fcfcfc">
               <BiMessageDots />
-              <Text marginLeft="5px">{threads?.replies_count} Replies</Text>
+              <Text marginLeft="5px">{threadDetail[0]?.replies_count} Replies</Text>
             </Button>
           </Box>
         </Grid>
