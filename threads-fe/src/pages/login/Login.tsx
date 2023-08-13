@@ -30,14 +30,16 @@ import { ILogin } from "@/interfaces/user"
 import { API, setAuthToken } from "@/lib/api"
 import { useDispatch } from "react-redux"
 import { AUTH_LOGIN } from "@/stores/rootReducer"
+import { useSelector } from "react-redux"
+import { RootState } from "@/stores/types/rootState"
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
 
-  const [isOpen, setIsOpen] = useState(false)
   const toast = useToast()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const auth = useSelector((state: RootState) => state.auth)
 
   const [form, setForm] = useState<ILogin>({
     email: "",
@@ -56,14 +58,9 @@ const Login = () => {
     try {
       const response = await API.post("/auth/login", form)
       console.log(response.data, "APANi")
-      localStorage.setItem("token", response.data.token)
+      // localStorage.setItem("token", response.data.token)
+      dispatch(AUTH_LOGIN(response.data))
       setAuthToken(localStorage.token)
-      // dispatch(AUTH_LOGIN({
-      //   id: response.data.data.id,
-      //   full_name: response.data.data.full_name,
-      //   username: response.data.data.username,
-      //   email: response.data.data.email
-      // }))
 
       toast({
         title: "Login success",

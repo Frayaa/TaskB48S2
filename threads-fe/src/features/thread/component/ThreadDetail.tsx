@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom"
-import threads from "@/utils/fakedata/threads.json"
 import {
   Box,
   Button,
@@ -19,7 +18,9 @@ import { IThreadCard } from "@/features/thread/component/ThreadCrad"
 const ThreadDetail = () => {
   const { id } = useParams<{id: any}>()
   const [idThreads, setIdThreads] = useState<IThreadCard[] | null>(null)
-  const [threadDetail, setThreadDetail] = useState<IThreadCard[]>([])
+  const [threadDetail, setThreadDetail] = useState<IThreadCard | null>(null)
+
+  
   
 
   const getThreadById = async () => {
