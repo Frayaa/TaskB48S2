@@ -4,6 +4,8 @@ import { AppDataSource } from "../data-source"
 import { Request, Response } from "express"
 import { createdThreadSchema } from "../utils/validators/thread"
 import { useParams } from "react-router-dom"
+import { v2 as cloudinary } from "cloudinary"
+import cloudinaryConfig from "../libs/config"
 
 class ThreadService {
   private readonly threadRepository: Repository<Thread> =
@@ -14,7 +16,18 @@ class ThreadService {
       const threads = await this.threadRepository.find({
         relations: ["user"],
       })
-      return res.status(200).json(threads)
+
+      let newResponse = []
+
+      threads.forEach((element) => {
+        element.image = element.image
+        newResponse.push({
+          ...element,
+          like_count: Math.floor(Math.random() * 100),
+          replies_count: Math.floor(Math.random() * 100),
+        })
+      })
+      return res.status(200).json(newResponse)
     } catch (err) {
       return res.status(500).json("Server error")
     }
@@ -36,25 +49,42 @@ class ThreadService {
 
   async create(req: Request, res: Response) {
     try {
-      const { content, image } = req.body
+      const filename = res.locals.filename
+      const data = {
+        content: req.body.content,
+        image: filename,
+      }
 
-      const { error, value } = createdThreadSchema.validate({ content, image })
+      const loginSession = res.locals.loginSession
+      console.log(loginSession)
+
+      const { error } = createdThreadSchema.validate(data)
+
+      cloudinaryConfig()
+
+      const cloudResponse = await cloudinary.uploader.upload(
+        "./uploads/" + filename
+      )
+      console.log("ini cloud", cloudResponse)
 
       if (error) {
         return res.status(400).json({
-          error: error.details[0].message,
+          error: error,
         })
       }
 
       const thread = this.threadRepository.create({
-        content: value.content,
-        image: value.image,
+        content: data.content,
+        image: cloudResponse.secure_url,
+        user: {
+          id: loginSession.user.id,
+        },
       })
 
       const createdThread = this.threadRepository.save(thread)
       return res.status(200).json(thread)
     } catch (err) {
-      return res.status(500).json({ err: err.message })
+      return res.status(500).json(err)
     }
   }
   async delete(req: Request, res: Response) {

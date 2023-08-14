@@ -31,7 +31,7 @@ const useLogin = () => {
     event.preventDefault()
     try {
       const response = await API.post("/auth/login", form)
-      console.log(response.data, "APANi")
+      console.log(response, "APANi")
       // localStorage.setItem("token", response.data.token)
       dispatch(AUTH_LOGIN(response.data))
       setAuthToken(localStorage.token)
@@ -49,7 +49,7 @@ const useLogin = () => {
       })
     }
   }
-  return { changeHandler, handleLogin }
+  return { changeHandler, handleLogin, auth }
 }
 
 export default useLogin

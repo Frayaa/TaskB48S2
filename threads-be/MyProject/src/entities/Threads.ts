@@ -17,7 +17,6 @@ export class Thread {
   @Column()
   content: string
 
-
   @Column({ nullable: true })
   image: string
 
@@ -30,10 +29,9 @@ export class Thread {
   })
   user: User
 
-
   @ManyToMany(() => Like, (like) => like.thread, {
     onDelete: "CASCADE",
-    onUpdate: "CASCADE"
+    onUpdate: "CASCADE",
   })
   like: Like[]
 }

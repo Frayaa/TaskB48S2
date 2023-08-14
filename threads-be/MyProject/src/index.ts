@@ -3,6 +3,7 @@ import * as express from "express"
 import { Request, Response } from "express"
 import * as cors from 'cors'
 import router from "./routes/routes"
+import 'dotenv/config' 
 
 
 // const threadRoute = require("./routes/threadRoute")
@@ -21,6 +22,7 @@ AppDataSource.initialize()
     app.use(cors())
 
     app.use("/api/v1", router)
+    app.use("/uploads", express.static("uploads"))
  
 
     // router.get("/", (req: Request, res: Response) => {

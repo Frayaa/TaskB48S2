@@ -13,12 +13,14 @@ import { Link, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { API } from "@/lib/api"
 import { IThreadCard } from "@/interfaces/thread"
+import useFetchThreads from "@/hooks/useFetchThreads"
 // import SideBar from "@/features/sidebar/SideBar"
 
 
 
 export const ThreadCard = (props: IThreadCard) => {
-  // console.log(props, "Prpop")
+
+  // console.log(props, "Prop")
 
   const [isLiked, setIsLiked] = useState(props.is_liked)
   const [likeCount, setLikeCount] = useState(props.likes_count || 0)

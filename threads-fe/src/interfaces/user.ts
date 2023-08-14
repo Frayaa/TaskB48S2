@@ -1,4 +1,3 @@
-import { IUser } from "@/features/thread"
 
 export interface ILogin {
   email: string

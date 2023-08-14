@@ -1,4 +1,4 @@
-import { useRegister } from "@/hooks/useRegister"
+import { useRegister } from "@/hooks/userRegister"
 import {
   Box,
   Button,

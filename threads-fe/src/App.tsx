@@ -10,7 +10,7 @@ import Login from "./pages/Login"
 
 export default function App() {
   const [isloading, setIsLoading] = useState<boolean>(false)
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const authCheck = async () => {
@@ -26,7 +26,7 @@ export default function App() {
     } catch (err) {
       localStorage.removeItem("token")
       setIsLoading(false)
-      // navigate("/login")
+      navigate("/login")
       console.log(err, "auth error")
     }
   }
@@ -37,7 +37,6 @@ export default function App() {
 
   return (
     <>
-      <BrowserRouter>
         {isloading ? null : (
           <Routes>
             <Route element={<Home />} path="/"></Route>
@@ -47,7 +46,6 @@ export default function App() {
             {/* <Route element={<Register />} path="/register"></Route> */}
           </Routes>
         )}
-      </BrowserRouter>
     </>
   )
 }

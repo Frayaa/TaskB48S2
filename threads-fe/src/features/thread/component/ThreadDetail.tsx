@@ -13,7 +13,7 @@ import { FcLikePlaceholder } from "react-icons/fc"
 import { BiMessageDots, BiSolidImageAdd } from "react-icons/bi"
 import { useEffect, useState } from "react"
 import { API } from "@/lib/api"
-import { IThreadCard } from "@/features/thread/component/ThreadCrad"
+import { IThreadCard } from "@/interfaces/thread"
 
 const ThreadDetail = () => {
   const { id } = useParams<{id: any}>()

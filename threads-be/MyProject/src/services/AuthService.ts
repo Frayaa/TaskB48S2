@@ -64,7 +64,7 @@ class AuthService {
         where: {
           email: value.email,
         },
-        select: ["full_name", "username", "email", "password"],
+        select: ["id", "full_name", "username", "email", "password"],
       })
 
       if (!checkEmail) {
@@ -80,9 +80,10 @@ class AuthService {
         return res.status(400).json("Email/Password is wrong")
       }
 
-      const user = await this.authRepository.create({
+      const user = this.authRepository.create({
         id: checkEmail.id,
         full_name: checkEmail.full_name,
+        username: checkEmail.username,
         email: checkEmail.email,
       })
 

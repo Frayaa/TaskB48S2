@@ -1,6 +1,7 @@
 import ProfilePage from "@/features/profilPage/Profile"
 import SideBar from "@/features/sidebar/SideBar"
-import { IThreadCard, ThreadCard } from "@/features/thread/component/ThreadCrad"
+import { ThreadCard } from "@/features/thread/component/ThreadCrad"
+import { IThreadCard, IThreadPost } from "@/interfaces/thread"
 import { API } from "@/lib/api"
 import {
   Container,
@@ -12,13 +13,9 @@ import {
   Input,
   Button,
   useToast,
+  Image,
 } from "@chakra-ui/react"
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
-
-interface IThreadPost {
-  content: string
-  image: string
-}
 
 export default function Home() {
   // const [thread] = useState(threads)
@@ -29,12 +26,12 @@ export default function Home() {
     content: "",
     image: "",
   })
-  
+  const [previewImage, setPreviewImage] = useState<string>("")
 
   const fetchData = async () => {
     try {
       const response = await API.get("/threads")
-      console.log("ini data", response.data.data)
+      console.log("ini data", response.data)
       setThread(response.data)
     } catch (err) {
       console.log(err, "error fetching")
@@ -42,31 +39,48 @@ export default function Home() {
   }
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setForm({
-      ...form,
-      [event.target.name]: event.target.value,
-    })
+    const { name, value, files } = event.target
+
+    if (files) {
+      console.log("ini file image", files[0])
+      const image = URL.createObjectURL(files[0])
+      setPreviewImage(image)
+      setForm({
+        ...form,
+        [name]: files[0],
+      })
+    } else {
+      setForm({
+        ...form,
+        [name]: value,
+      })
+    }
   }
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
+
+    const formData = new FormData()
+    formData.append("content", form.content)
+    formData.append("image", form.image as File)
     try {
-      const response = await API.post("/thread", {
-        content: form.content,
-        image: form.image,
-      })
+      const response = await API.post("/thread", formData)
       console.log(response.data, "ini post")
-      setForm({
-        content: "",
-        image: "",
-      })
+      // setForm({
+      //   content: "",
+      //   image: "",
+      // })
       toast({
         title: "Thread Telah ditambahkan",
         status: "success",
       })
+      setForm({
+        content: "",
+        image: "",
+      })
+      setPreviewImage("")
 
       fetchData()
-      // setIsModalOpen(false)
       console.log(fetchData, "ini baru")
     } catch (err) {
       console.log(err)
@@ -86,11 +100,10 @@ export default function Home() {
       <Container marginLeft="-8">
         <Grid templateColumns="repeat(2, 1fr)">
           <SideBar />
-          {/* <FormThread isOpen={isModalOpen} onClose={closeModal} /> */}
 
           <VStack borderRight={"1px"}>
             <Box marginTop="5" padding="2" borderRadius="15" marginLeft="80">
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <FormControl>
                   <FormLabel>content</FormLabel>
                   <Input
@@ -104,11 +117,14 @@ export default function Home() {
                 <FormControl>
                   <FormLabel>Image</FormLabel>
                   <Input
+                    type="file"
                     name="image"
                     placeholder="image"
-                    value={form.image}
+                    // value={"Post"}
                     onChange={changeHandler}
-                  ></Input>
+                    accept="image/*"
+                  />
+                  {previewImage && <Image src={previewImage} />}
                 </FormControl>
                 <Button type="submit" marginTop="5px">
                   Submit

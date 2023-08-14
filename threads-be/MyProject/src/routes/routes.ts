@@ -2,12 +2,13 @@ import AuthController from "../controllers/AuthController"
 import ThreadController from "../controllers/ThreadController"
 import * as express from "express"
 import authenticate from "../middlewares/authMiddleware"
+import { upload } from "../middlewares/uploadFile"
 
 const router = express.Router()
 
-router.get("/threads", ThreadController.find)
+router.get("/threads", authenticate,ThreadController.find)
 router.get("/thread/:id", authenticate, ThreadController.findOne)
-router.post("/thread", authenticate, ThreadController.create)
+router.post("/thread", authenticate,upload("image"), ThreadController.create)
 router.delete("/thread/:id", authenticate, ThreadController.delete)
 router.patch("/thread/update/:id", authenticate, ThreadController.update)
 

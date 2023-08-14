@@ -12,6 +12,7 @@ import {
 import { Provider } from "react-redux"
 import rootReducer from "./stores/rootReducer.ts"
 import { configureStore} from "@reduxjs/toolkit"
+import { BrowserRouter } from "react-router-dom"
 
 const color: Colors = {
   brand: {
@@ -35,7 +36,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
 
     <ChakraProvider theme={theme}>
+      <BrowserRouter>
       <App />
+      </BrowserRouter>
     </ChakraProvider>
     </Provider>
   </React.StrictMode>
