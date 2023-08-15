@@ -41,7 +41,8 @@ const FormLogin = () => {
           <Text fontWeight="bold" fontSize="2xl" mb="12px">
             Login to Circle{" "}
           </Text>
-       
+          {/* <Button onClick={() => (console.log(auth, "ini button"))}></Button> */}
+
           <VStack spacing={5}>
             <form>
               <FormControl>

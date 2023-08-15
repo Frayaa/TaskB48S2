@@ -64,7 +64,7 @@ class AuthService {
         where: {
           email: value.email,
         },
-        select: ["id", "full_name", "username", "email", "password"],
+        select: ["id", "full_name", "username", "email", "password", "profile_picture", "description"],
       })
 
       if (!checkEmail) {
@@ -85,6 +85,8 @@ class AuthService {
         full_name: checkEmail.full_name,
         username: checkEmail.username,
         email: checkEmail.email,
+        profile_picture: checkEmail.profile_picture,
+        description: checkEmail.description
       })
 
       const token = jwt.sign({ user }, "password", { expiresIn: "1h" })

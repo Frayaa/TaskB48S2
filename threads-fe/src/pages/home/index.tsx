@@ -66,20 +66,16 @@ export default function Home() {
     try {
       const response = await API.post("/thread", formData)
       console.log(response.data, "ini post")
-      // setForm({
-      //   content: "",
-      //   image: "",
-      // })
-      toast({
-        title: "Thread Telah ditambahkan",
-        status: "success",
-      })
       setForm({
         content: "",
         image: "",
       })
       setPreviewImage("")
-
+      toast({
+        title: "Thread Telah ditambahkan",
+        status: "success",
+      })
+     
       fetchData()
       console.log(fetchData, "ini baru")
     } catch (err) {

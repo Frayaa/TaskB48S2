@@ -26,12 +26,12 @@ export const authSlice = createSlice({
       state.data.full_name = payload.user.full_name
       state.data.username = payload.user.username
       state.data.email = payload.user.email
+      state.data.profile_picture = payload.user.profile_picture
+      state.data.description = payload.user.description
     },
-    AUTH_CHECK: () => {
-      const checkToken = localStorage.getItem("token")
-      if (checkToken) {
-        setAuthToken(checkToken)
-      }
+    AUTH_CHECK: (state, action) => {
+      const payload = action.payload
+      state.data = payload
     },
     AUTH_ERROR: (state) => {
       localStorage.removeItem("token")

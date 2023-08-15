@@ -1,3 +1,4 @@
+import { RootState } from "@/stores/types/rootState"
 import {
   Heading,
   Avatar,
@@ -19,8 +20,12 @@ import {
   AiFillInstagram,
   AiFillLinkedin,
 } from "react-icons/ai"
+import { useSelector } from "react-redux"
 
 export default function ProfilePage() {
+  const auth = useSelector((state: RootState) => state.auth)
+  console.log(auth, "authnya")
+  console.log(auth.data, "authnya data")
   return (
     <VStack marginTop="30px" marginLeft="20px" position="relative">
       <GridItem
@@ -52,8 +57,7 @@ export default function ProfilePage() {
           <Avatar
             size={"xl"}
             src={
-              "https://images.unsplash.com/photo-1681863177225-5fa13305ea95?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-            }
+             auth.data.profile_picture}
             css={{
               border: "2px solid white",
             }}
@@ -71,10 +75,10 @@ export default function ProfilePage() {
         <Box p={6}>
           <Stack spacing={0} mb={5}>
             <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
-              Lalalala
+              {auth.data.full_name}
             </Heading>
-            <Text color={"gray.500"}>@lalala</Text>
-            <Text color={"gray.500"}>Frontend Developer</Text>
+            <Text color={"gray.500"}>{auth.data.username}</Text>
+            <Text color={"gray.500"}>{auth.data.description}</Text>
           </Stack>
 
           <HStack alignItems="start">
@@ -102,22 +106,22 @@ export default function ProfilePage() {
           </Heading>
           <HStack>
             {/* <Flex> */}
-              <Image
-                // boxSize="50px"
-                height="50px"
-                borderRadius="50"
-                width="120px"
-                objectFit="cover"
-                marginTop="25px"
-                src="https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
-              />
+            <Image
+              // boxSize="50px"
+              height="50px"
+              borderRadius="50"
+              width="120px"
+              objectFit="cover"
+              marginTop="25px"
+              src="https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+            />
 
-              <VStack marginTop="6" marginLeft="2">
-                <Text fontWeight="bold">lalalla</Text>
-                <Text>@lalalla</Text>
-              </VStack>
+            <VStack marginTop="6" marginLeft="2">
+              <Text fontWeight="bold">lalalla</Text>
+              <Text>@lalalla</Text>
+            </VStack>
             {/* </Flex> */}
-            
+
             <Button
               marginLeft="3em"
               w="40"
@@ -136,20 +140,20 @@ export default function ProfilePage() {
 
           <HStack>
             {/* <Flex> */}
-              <Image
-                // boxSize="50px"
-                height="50px"
-                borderRadius="50"
-                width="120px"
-                objectFit="cover"
-                marginTop="25px"
-                src="https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
-              />
+            <Image
+              // boxSize="50px"
+              height="50px"
+              borderRadius="50"
+              width="120px"
+              objectFit="cover"
+              marginTop="25px"
+              src="https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+            />
 
-              <VStack marginTop="6" marginLeft="5">
-                <Text fontWeight="bold">lalalla</Text>
-                <Text>@lalalla</Text>
-              </VStack>
+            <VStack marginTop="6" marginLeft="5">
+              <Text fontWeight="bold">lalalla</Text>
+              <Text>@lalalla</Text>
+            </VStack>
             {/* </Flex> */}
             <Button
               marginLeft="3em"
@@ -169,20 +173,20 @@ export default function ProfilePage() {
 
           <HStack>
             {/* <Flex > */}
-              <Image
-                // boxSize="50px"
-                height="50px"
-                borderRadius="50"
-                width="120px"
-                objectFit="cover"
-                marginTop="25px"
-                src="https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
-              />
+            <Image
+              // boxSize="50px"
+              height="50px"
+              borderRadius="50"
+              width="120px"
+              objectFit="cover"
+              marginTop="25px"
+              src="https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+            />
 
-              <VStack marginTop="6" marginLeft="5">
-                <Text fontWeight="bold">lalalla</Text>
-                <Text>@lalalla</Text>
-              </VStack>
+            <VStack marginTop="6" marginLeft="5">
+              <Text fontWeight="bold">lalalla</Text>
+              <Text>@lalalla</Text>
+            </VStack>
             {/* </Flex> */}
             <Button
               marginLeft="3em"
@@ -201,23 +205,23 @@ export default function ProfilePage() {
           </HStack>
           <HStack>
             {/* <Flex> */}
-              <Image
-                // boxSize="50px"
-                height="50px"
-                borderRadius="50"
-                width="120px"
-                objectFit="cover"
-                marginTop="25px"
-                src="https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
-              />
+            <Image
+              // boxSize="50px"
+              height="50px"
+              borderRadius="50"
+              width="120px"
+              objectFit="cover"
+              marginTop="25px"
+              src="https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+            />
 
-              <VStack marginTop="6" marginLeft="5">
-                <Text fontWeight="bold">lalalla</Text>
-                <Text>@lalalla</Text>
-              </VStack>
+            <VStack marginTop="6" marginLeft="5">
+              <Text fontWeight="bold">lalalla</Text>
+              <Text>@lalalla</Text>
+            </VStack>
             {/* </Flex> */}
             <Button
-            marginLeft="3em"
+              marginLeft="3em"
               w="40"
               mt={8}
               bg={useColorModeValue("#151f21", "gray.900")}
@@ -242,9 +246,9 @@ export default function ProfilePage() {
       >
         <Box p={6}>
           <Heading fontSize={"2xl"} fontWeight={400} fontFamily={"body"}>
-            Developed by Your Name 
+            Developed by Your Name
             <Flex>
-            <AiFillGithub />
+              <AiFillGithub />
               <AiFillLinkedin />
               <AiFillFacebook />
               <AiFillInstagram />
