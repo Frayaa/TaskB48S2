@@ -14,7 +14,7 @@ class ThreadService {
   async find(req: Request, res: Response) {
     try {
       const threads = await this.threadRepository.find({
-        relations: ["user"],
+        relations: ["user", "likes", "replies"],
       })
 
       let newResponse = []
@@ -23,8 +23,8 @@ class ThreadService {
         element.image = element.image
         newResponse.push({
           ...element,
-          like_count: Math.floor(Math.random() * 100),
-          replies_count: Math.floor(Math.random() * 100),
+          likes_count: element.likes.length,
+          replies_count: element.replies.length,
         })
       })
       return res.status(200).json(newResponse)

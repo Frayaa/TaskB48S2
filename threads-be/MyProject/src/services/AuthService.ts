@@ -89,7 +89,7 @@ class AuthService {
         description: checkEmail.description
       })
 
-      const token = jwt.sign({ user }, "password", { expiresIn: "1h" })
+      const token = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: "1h" })
 
       return res.status(200).json({
         user,

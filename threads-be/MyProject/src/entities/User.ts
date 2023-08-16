@@ -4,11 +4,12 @@ import {
   Column,
   Timestamp,
   OneToMany,
- 
   ManyToOne,
 } from "typeorm"
 import { Thread } from "./Threads"
-import { Like } from "./likes"
+import { Like } from "./Like"
+import { Reply } from "./Reply"
+import { Follow } from "./Follows"
 
 @Entity({ name: "users" })
 export class User {
@@ -35,13 +36,31 @@ export class User {
 
   @OneToMany(() => Thread, (thread) => thread.user, {
     onDelete: "CASCADE",
-    onUpdate: "CASCADE"
+    onUpdate: "CASCADE",
   })
-  thread: Thread[]
+  threads: Thread[]
 
-  @OneToMany(() => Like, (like) => like.user, {
+  @OneToMany(() => Thread, (thread) => thread.user, {
     onDelete: "CASCADE",
-    onUpdate: "CASCADE"
+    onUpdate: "CASCADE",
   })
-  like: Like[]
+  likes: Like[]
+
+  @OneToMany(() => Reply, (replies) => replies.user, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  replies: Reply[]
+
+  @OneToMany(() => Follow, (follow) => follow.follower, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  followers: Follow[]
+
+  @OneToMany(() => Follow, (follow) => follow.followed, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  followings: Follow[]
 }

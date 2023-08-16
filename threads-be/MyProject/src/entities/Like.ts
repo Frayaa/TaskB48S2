@@ -16,15 +16,15 @@ import { Thread } from "./Threads"
     id: number
   
     
-    @ManyToOne(() => User, (user) => user.like, {
+    @ManyToOne(() => Thread, (thread) => thread.likes, {
       onDelete: "CASCADE",
       onUpdate: "CASCADE"
     })
-    user: User[]
+    thread: Thread
 
-    @ManyToMany(() => Thread, (thread) => thread.like, {
+    @ManyToOne(() => User, (user) => user.likes, {
       onDelete: "CASCADE",
       onUpdate: "CASCADE"
     })
-    thread: Thread[]
+    user: User
   }

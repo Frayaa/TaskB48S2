@@ -1,1 +1,1 @@
-export * from './ThreadCrad'
+export * from "./Threadcard"

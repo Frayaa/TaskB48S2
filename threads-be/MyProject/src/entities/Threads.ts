@@ -5,9 +5,11 @@ import {
   Timestamp,
   ManyToOne,
   ManyToMany,
+  OneToMany,
 } from "typeorm"
 import { User } from "./User"
-import { Like } from "./likes"
+import { Like } from "./Like"
+import { Reply } from "./Reply"
 
 @Entity({ name: "threads" })
 export class Thread {
@@ -23,15 +25,20 @@ export class Thread {
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   posted_at: Date
 
-  @ManyToOne(() => User, (user) => user.thread, {
+  @ManyToOne(() => User, (user) => user.threads, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
   user: User
 
-  @ManyToMany(() => Like, (like) => like.thread, {
+  @OneToMany(() => Like, (like) => like.thread, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  like: Like[]
+  likes: Like[]
+  @OneToMany(() => Reply, (replies) => replies.thread, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  replies: Reply[]
 }
