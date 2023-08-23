@@ -31,8 +31,8 @@ export const authSlice = createSlice({
     },
     AUTH_CHECK: (state, action) => {
       const payload = action.payload
-      // localStorage.setItem("token", payload.token)
       state.data = payload
+      console.log(state, "ini state")
     },
     AUTH_ERROR: (state) => {
       localStorage.removeItem("token")

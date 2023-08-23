@@ -8,4 +8,5 @@ export interface IReply {
 
 export interface IReplyPost {
   content: string
+  thread_id: number
 }

@@ -3,47 +3,79 @@ import { Thread } from "../entities/Threads"
 import { AppDataSource } from "../data-source"
 import { Request, Response } from "express"
 import { createdThreadSchema } from "../utils/validators/thread"
-import { useParams } from "react-router-dom"
 import { v2 as cloudinary } from "cloudinary"
-import cloudinaryConfig from "../libs/config"
+import { cloudinaryConfig } from "../libs/cloudinary"
 
 class ThreadService {
   private readonly threadRepository: Repository<Thread> =
     AppDataSource.getRepository(Thread)
 
-  async find(req: Request, res: Response) {
+  async find(reqQuery?: any, loginSession?: any): Promise<any> {
     try {
+      const limit = parseInt(reqQuery.limit ?? 0)
+
       const threads = await this.threadRepository.find({
-        relations: ["user", "likes", "replies"],
+        relations: ["user", "likes.user", "replies"],
+        order: {
+          id: "DESC",
+        },
+        take: limit,
       })
 
-      let newResponse = []
+      // let newResponse = []
 
-      threads.forEach((element) => {
-        element.image = element.image
-        newResponse.push({
-          ...element,
-          likes_count: element.likes.length,
-          replies_count: element.replies.length,
-        })
-      })
-      return res.status(200).json(newResponse)
+      return threads.map((element) => ({
+        id: element.id,
+        content: element.content,
+        image: element.image,
+        posted_at: element.posted_at,
+        user: element.user,
+        replies_count: element.replies.length,
+        likes_count: element.likes.length,
+        is_liked: element.likes.some(
+          (like: any) => like.user.id === loginSession.user.id
+        ),
+      }))
+
+      // threads.map((element) => {
+      //   element.image = element.image
+      //   newResponse.push({
+      //     ...element,
+      //     likes_count: element.likes.length,
+      //     replies_count: element.replies.length,
+      //   })
+      // })
+      // return res.status(200).json(newResponse)
     } catch (err) {
-      return res.status(500).json("Server error")
+      throw new Error("Server Error")
     }
   }
-  async findOne(req: Request, res: Response) {
+  async findOne(id: number, loginSession: any): Promise<any> {
     try {
-      const id = parseInt(req.params.id)
+      // const id = parseInt(req.params.id)
       const threads = await this.threadRepository.findOne({
         where: {
           id: id,
         },
-        relations: ["user"],
+        relations: ["user", "replies", "likes.user"],
       })
-      return res.status(200).json(threads)
+
+      return {
+        id: threads.id,
+        content: threads.content,
+        image: threads.image,
+        posted_at: threads.posted_at,
+        user: threads.user,
+        replies_count: threads.replies.length,
+        likes_count: threads.likes.length,
+        is_liked: threads.likes.some(
+          (like: any) => like.user.id === loginSession.user.id
+        ),
+      }
+
+      // return res.status(200).json(threads)
     } catch (err) {
-      return res.status(500).json("Server error")
+      throw new Error("Server error")
     }
   }
 
@@ -60,18 +92,17 @@ class ThreadService {
 
       const { error } = createdThreadSchema.validate(data)
 
+      
+            if (error) {
+              return res.status(400).json({
+                error: error,
+              })
+            }
       cloudinaryConfig()
 
       const cloudResponse = await cloudinary.uploader.upload(
         "./uploads/" + filename
       )
-      console.log("ini cloud", cloudResponse)
-
-      if (error) {
-        return res.status(400).json({
-          error: error,
-        })
-      }
 
       const thread = this.threadRepository.create({
         content: data.content,

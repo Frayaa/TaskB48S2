@@ -1,31 +1,31 @@
 import {
+  Box,
   Button,
   ButtonGroup,
   Container,
-  FormControl,
-  FormLabel,
   Heading,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
+  Spacer,
+  Stack,
   VStack,
 } from "@chakra-ui/react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { AiFillHome, AiOutlineSearch } from "react-icons/ai"
 import { RiUserFollowFill } from "react-icons/ri"
 import { CgProfile } from "react-icons/cg"
 import { useState } from "react"
-
-
+import { useDispatch } from "react-redux"
+import { AUTH_LOGOUT } from "@/stores/rootReducer"
 
 const SideBar = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  
+  const btnLogout = () => {
+    localStorage.removeItem("token")
+    dispatch(AUTH_LOGOUT())
+    navigate("/login")
+  }
+
   return (
     <>
       <Container
@@ -34,10 +34,9 @@ const SideBar = () => {
         marginLeft="30px"
         marginTop="50px"
         backgroundColor="#505250"
-      p="5"
+        p="5"
         borderRadius="10"
         h="46vh"
-       
       >
         <Heading marginLeft="5">Circle</Heading>
         <VStack float="left">
@@ -85,14 +84,36 @@ const SideBar = () => {
                 <CgProfile style={{ marginRight: "10" }} /> Profile
               </Button>
             </NavLink>
-           
-              <Button backgroundColor="#3dad5b" width="34vh" >
-                Create Post
-              </Button>
+
+            <Button backgroundColor="#3dad5b" width="34vh">
+              Create Post
+            </Button>
           </ButtonGroup>
         </VStack>
-      </Container>
 
+        <Spacer />
+
+        <Box color="white" w="50%" marginTop="75vh">
+          <Container
+            as={Stack}
+            direction={{ base: "column", md: "row" }}
+            align={{ base: "center", md: "center" }}
+            
+          >
+            <Button
+              w="100%"
+              cursor="pointer"
+              variant="outlined"
+              borderRadius="0px"
+              border="1px solid"
+              _hover={{ bg: "#005e9d" }}
+              onClick={btnLogout}
+            >
+              LOGOUT
+            </Button>
+          </Container>
+        </Box>
+      </Container>
     </>
   )
 }

@@ -4,6 +4,7 @@ import { Request, Response } from "express"
 import * as cors from 'cors'
 import router from "./routes/routes"
 import 'dotenv/config' 
+import ThreadWorker from "./workers/ThreadWorker"
 
 
 // const threadRoute = require("./routes/threadRoute")
@@ -24,6 +25,7 @@ AppDataSource.initialize()
     app.use("/api/v1", router)
     app.use("/uploads", express.static("uploads"))
  
+    // ThreadWorker()
 
     // router.get("/", (req: Request, res: Response) => {
     //   res.send("Hello World")
@@ -35,7 +37,7 @@ AppDataSource.initialize()
     //   })
     // })
 
-    app.listen(port, () => {
+    app.listen(port, async () => {
       console.log(`Server running on http://localhost:${port}`)
     })
   })

@@ -1,19 +1,41 @@
-import { Request, Response } from "express";
-import AuthService from "../services/AuthService";
+import { Request, Response } from "express"
+import AuthService from "../services/AuthService"
 
 class AuthController {
-    register(req: Request, res: Response) {
-        AuthService.register(req, res)
+  async register(req: Request, res: Response) {
+    try {
+      const response = await AuthService.register(req.body)
+      return res.status(200).json(response)
+    } catch (err) {
+      console.log(err)
+      return res.status(500).json({
+        error: "Server error",
+      })
     }
-    login(req: Request, res: Response) {
-        AuthService.login(req, res)
+  }
+  async login(req: Request, res: Response) {
+    try {
+      const response = await AuthService.login(req.body)
+      return res.status(200).json(response)
+    } catch (err) {
+      console.log(err)
+      return res.status(500).json({
+        error: "Server error",
+      })
     }
-    check(req: Request, res: Response) {
-        AuthService.check(req, res)
+  }
+  async check(req: Request, res: Response) {
+    try {
+      const loginSession = res.locals.loginSession
+      const response = await AuthService.check(loginSession)
+      return res.status(200).json(response)
+    } catch (err) {
+      console.log(err)
+      return res.status(500).json({
+        error: "Server error",
+      })
     }
-    
-   
+  }
 }
-
 
 export default new AuthController()

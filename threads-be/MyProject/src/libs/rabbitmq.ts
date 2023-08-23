@@ -11,6 +11,7 @@ export async function sendMessageToQueue(
     await channel.assertQueue(queueName)
     channel.sendToQueue(queueName, Buffer.from(JSON.stringify(payload)))
 
+    // await channel.waitForConfirms()
     await channel.close()
     await connection.close()
 

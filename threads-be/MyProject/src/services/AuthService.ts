@@ -10,16 +10,14 @@ class AuthService {
   private readonly authRepository: Repository<User> =
     AppDataSource.getRepository(User)
 
-  async register(req: Request, res: Response) {
+  async register(reqBody: any): Promise<any> {
     try {
-      const data = req.body
+      const data = reqBody
 
       const { error, value } = registerSchema.validate(data)
 
       if (error) {
-        return res.status(400).json({
-          error: error.details[0].message,
-        })
+        throw new Error(error.details[0].message)
       }
 
       const checkEmail = await this.authRepository.findOne({
@@ -29,46 +27,54 @@ class AuthService {
       })
 
       if (checkEmail) {
-        return res.status(400).json("Email Already Use")
+        throw new Error("Email Already Use")
       }
 
       const hashPassword = bcrypt.hashSync(value.password, 10)
 
-      const register = await this.authRepository.create({
+      const register = this.authRepository.create({
         full_name: value.full_name,
         username: value.username,
         email: value.email,
         password: hashPassword,
       })
 
-      const userRegister = this.authRepository.save(register)
-      return res.status(200).json(register)
+      this.authRepository.save(register)
+      return {
+        register,
+      }
     } catch (err) {
-      return res.status(500).json("Server error")
+      throw new Error("Server error")
     }
   }
 
-  async login(req: Request, res: Response) {
+  async login(reqBody: any): Promise<any> {
     try {
-      const data = req.body
+      const data = reqBody
 
       const { error, value } = loginSchema.validate(data)
 
       if (error) {
-        return res.status(400).json({
-          error: error.details[0].message,
-        })
+        throw new Error(error.details[0].message)
       }
 
       const checkEmail = await this.authRepository.findOne({
         where: {
           email: value.email,
         },
-        select: ["id", "full_name", "username", "email", "password", "profile_picture", "description"],
+        select: [
+          "id",
+          "full_name",
+          "username",
+          "email",
+          "password",
+          "profile_picture",
+          "description",
+        ],
       })
 
       if (!checkEmail) {
-        return res.status(400).json("Email/Password is wrong")
+        throw new Error("Email/Password is wrong")
       }
 
       const isPasswordValid = bcrypt.compareSync(
@@ -77,7 +83,7 @@ class AuthService {
       )
 
       if (!isPasswordValid) {
-        return res.status(400).json("Email/Password is wrong")
+        throw new Error("Email/Password is wrong")
       }
 
       const user = this.authRepository.create({
@@ -86,35 +92,35 @@ class AuthService {
         username: checkEmail.username,
         email: checkEmail.email,
         profile_picture: checkEmail.profile_picture,
-        description: checkEmail.description
+        description: checkEmail.description,
       })
 
-      const token = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: "1h" })
+      const token = jwt.sign({ user }, process.env.SECRET_KEY, {
+        expiresIn: "1h",
+      })
 
-      return res.status(200).json({
+      return {
         user,
         token,
-      })
+      }
     } catch (err) {
-      return res.status(500).json("Server error")
+      throw new Error("Server error")
     }
   }
 
-  async check(req: Request, res: Response) {
+  async check(loginSession: any): Promise<any> {
     try {
-      const loginSession = res.locals.loginSession
-
       const user = await this.authRepository.findOne({
         where: {
           email: loginSession.user.email,
         },
       })
-      return res.status(200).json({
+      return {
         user,
         message: "Token is valid",
-      })
+      }
     } catch (err) {
-      return res.status(500).json("Server error")
+      throw new Error("Server error")
     }
   }
 }

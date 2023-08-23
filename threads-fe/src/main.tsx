@@ -4,14 +4,12 @@ import App from "./App.tsx"
 import {
   ChakraProvider,
   Colors,
-  Theme,
   ThemeConfig,
-  extendBaseTheme,
   extendTheme,
 } from "@chakra-ui/react"
 import { Provider } from "react-redux"
 import rootReducer from "./stores/rootReducer.ts"
-import { configureStore} from "@reduxjs/toolkit"
+import { configureStore } from "@reduxjs/toolkit"
 import { BrowserRouter } from "react-router-dom"
 
 const color: Colors = {
@@ -28,18 +26,17 @@ const config: ThemeConfig = {
 const theme = extendTheme({ color, config })
 
 const store = configureStore({
-  reducer: rootReducer
+  reducer: rootReducer,
 })
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
-
-    <ChakraProvider theme={theme}>
-      <BrowserRouter>
-      <App />
-      </BrowserRouter>
-    </ChakraProvider>
+      <ChakraProvider theme={theme}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ChakraProvider>
     </Provider>
   </React.StrictMode>
 )

@@ -1,17 +1,30 @@
 import { IReplyPost } from "@/interfaces/reply"
+import { IThreadCard } from "@/interfaces/thread"
 import { API } from "@/lib/api"
 import { useToast } from "@chakra-ui/react"
-import { ChangeEvent, FormEvent, useState } from "react"
-import { useSelector } from "react-redux"
-import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { ChangeEvent, FormEvent, useEffect, useState } from "react"
+import {  useParams } from "react-router-dom"
 
 const UseReply = () => {
     const toast = useToast()
+    const {id} = useParams()
   
+  const [replies, setReplies] = useState<IThreadCard[]>([])
+
     const [form, setForm] = useState<IReplyPost>({
-      content: ""
+      content: "",
+      thread_id: +(id as string)
     })
+
+    const getReplies = async () => {
+      try {
+        const response = await API.get(`/replies?thread_id=${id}`)
+        setReplies(response.data)
+        console.log(response.data, "ini repliesnya")
+      } catch (err) {
+        console.log(err)
+      }
+    }
   
     const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
       setForm({
@@ -20,19 +33,20 @@ const UseReply = () => {
       })
     }
   
-    const handleSubmit = async (event: FormEvent) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement> ) => {
       event.preventDefault()
       try {
         const response = await API.post("/reply", form)
-        console.log(response, "APANi")
-        setForm({
-            content: "",
-       
-          })
+        console.log(response, "ini reply baru")
+        setReplies([...replies, response.data])
         toast({
           title: "Add Reply",
           status: "success",
         })
+        setForm({
+            content: "",
+            thread_id: 0
+          })
       } catch (err) {
         console.log(err)
         toast({
@@ -41,7 +55,11 @@ const UseReply = () => {
         })
       }
     }
-    return { changeHandler, handleSubmit }
+
+    useEffect(() => {
+      getReplies()
+    }, [])
+    return { changeHandler, handleSubmit , getReplies, replies}
 }
 
 export default UseReply

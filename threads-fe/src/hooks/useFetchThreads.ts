@@ -3,6 +3,7 @@ import SideBar from "@/features/sidebar/SideBar"
 import { ThreadCard } from "@/features/thread/component/Threadcard"
 import { IThreadCard, IThreadPost } from "@/interfaces/thread"
 import { API } from "@/lib/api"
+import { GET_THREADS } from "@/stores/rootReducer"
 import {
   Container,
   VStack,
@@ -17,12 +18,14 @@ import {
   Text,
 } from "@chakra-ui/react"
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react"
+import { useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 
 const UseFetchThreads = () => {
   // const [thread] = useState(threads)
-  const inputFileRef = useRef<HTMLInputElement>(null);
+  const inputFileRef = useRef<HTMLInputElement>(null)
 
+  const dispatch = useDispatch()
   const toast = useToast()
   const [thread, setThread] = useState<IThreadCard[]>([])
   const [form, setForm] = useState<IThreadPost>({
@@ -30,12 +33,15 @@ const UseFetchThreads = () => {
     image: "",
   })
   const [previewImage, setPreviewImage] = useState<string>("")
+  const [page, setPage] = useState(1)
 
   const fetchData = async () => {
     try {
-      const response = await API.get("/threads")
+      const response = await API.get(`/threads`)
       console.log("ini data", response.data)
       setThread(response.data)
+      // dispatch(GET_THREADS(response.data))
+      console.log(GET_THREADS(response.data), "get thread")
     } catch (err) {
       console.log(err, "error fetching")
     }
@@ -90,28 +96,26 @@ const UseFetchThreads = () => {
     }
   }
 
+   const seeMoreBtnHandler = () => {
+      setPage(page + 1)
+    }
   useEffect(() => {
     fetchData()
   }, [])
 
-  const { id } = useParams<{ id: any }>()
-  const [idThreads, setIdThreads] = useState<IThreadCard[] | null>(null)
-  const [threadDetail, setThreadDetail] = useState<IThreadCard | null>(null)
-
-  const getThreadById = async () => {
-    const response = await API.get(`/thread/${id}`)
-    console.log(response.data, "P")
-    setThreadDetail(response.data)
-    setIdThreads(id)
-  }
-
-  useEffect(() => {
-    getThreadById()
-  }, [id])
-
+  
   // const threadId = id;
 
-  return { changeHandler, handleSubmit, thread, form, previewImage, fetchData, inputFileRef }
+  return {
+    changeHandler,
+    handleSubmit,
+    thread,
+    form,
+    previewImage,
+    fetchData,
+    inputFileRef,
+    seeMoreBtnHandler,
+  }
 }
 
 export default UseFetchThreads

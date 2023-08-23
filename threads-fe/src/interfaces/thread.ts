@@ -20,6 +20,6 @@ export interface IUser {
 
   export interface IThreadPost {
     content: string
-    image: MediaSource | Blob | string
+    image?: MediaSource | Blob | string
   }
   

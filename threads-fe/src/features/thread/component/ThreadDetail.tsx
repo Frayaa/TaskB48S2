@@ -11,6 +11,7 @@ import {
   FormControl,
   FormLabel,
   Grid,
+  GridItem,
   HStack,
   Heading,
   Image,
@@ -26,51 +27,31 @@ import { IReplyPost } from "@/interfaces/reply"
 import SideBar from "@/features/sidebar/SideBar"
 import ProfilePage from "@/features/profilPage/Profile"
 import UseReply from "@/hooks/useReply"
+import UseThreadDetail from "@/hooks/useThreadDetail"
 
 const ThreadDetail = () => {
   const { id } = useParams<{ id: any }>()
-  const [idThreads, setIdThreads] = useState<IThreadCard[] | null>(null)
-  const [threadDetail, setThreadDetail] = useState<IThreadCard | null>(null)
-  const [replies, setReplies] = useState<IThreadCard[]>()
-  // const [previewImage, setPreviewImage] = useState<string>("")
-  const {changeHandler, handleSubmit} = UseReply()
-
-  console.log(replies, "ini repliesbeneran")
-
-  const getThreadById = async () => {
-    const response = await API.get(`/thread/${id}`)
-    console.log(response.data, "P")
-    setThreadDetail(response.data)
-    setIdThreads(id)
-  }
-
-  const getReplies = async () => {
-    try {
-      const response = await API.get(`/replies?thread_id=${id}`)
-      setReplies(response.data)
-      console.log(response.data, "ini repliesnya")
-    } catch (err) {
-      console.log(err)
-    }
-  }
+  const { changeHandler, handleSubmit } = UseReply()
+  const { getThreadById, threadDetail } = UseThreadDetail()
+  const { getReplies, replies } = UseReply()
 
   useEffect(() => {
     getThreadById()
-    getReplies()
   }, [id])
 
-  if (idThreads === undefined) {
-    return <Text>Thread ID not provided</Text>
-  }
-
-  // const threads = threadDetail.find((thread) => thread.id === Number(idThreads))
+  useEffect(() => {
+    getReplies()
+  }, [threadDetail])
 
   return (
-    <Box >
+    <Box>
       {threadDetail ? (
-        <Grid templateColumns="repeat(2, 1fr)">
-          <SideBar />
-          <VStack borderRight={"1px"}>
+        <Grid templateColumns="repeat(12, 1fr)">
+          <GridItem colSpan={3}>
+            <SideBar />
+          </GridItem>
+          <GridItem colSpan={5}>
+            {/* <VStack borderRight={"1px"}> */}
             <ThreadCard
               // key={index}
               id={threadDetail.id}
@@ -82,62 +63,76 @@ const ThreadDetail = () => {
               image={threadDetail.image}
               is_liked={threadDetail.is_liked}
             />
-             <form>
-              <FormControl marginLeft="10em">
-                <Input
-                  width="30vh"
-                  // w={"2xl"}
-                  name="content"
-                  type="content"
-                  onChange={changeHandler}
-                  placeholder="Type Your Replies"
-                />
-              </FormControl>
-              
-              {/* <Center> */}
-                <Button
-                marginLeft="8em"
-                  type={"submit"}
-                  bgColor="#3dad5b"
-                  color={"white"}
-                  mt="5"
-                  w={"20%"}
-                  borderRadius="20px"
-                  onClick={handleSubmit}
-                  fontSize="15px" > Send
-                </Button>
-              {/* </Center> */}
-            </form>
+            <Box marginLeft="24">
+              <form onSubmit={handleSubmit}>
+                <HStack>
+                  <Box mt="2">
+                    <FormControl>
+                      <Input
+                        width="46vh"
+                        name="content"
+                        type="content"
+                        onChange={changeHandler}
+                        placeholder="Type Your Replies"
+                      />
+                    </FormControl>
+                  </Box>
 
-<Box display="flex" flexDirection="column" gap={5}>
-  {replies?.map((reply) => {
-    return (
-      // <Box border="1px solid #ccc" borderRadius="8px" padding="10px">
-      <Flex >
-        <Image src={reply.user?.profile_picture ? reply.user?.profile_picture : "/user-placeholder.png"}
-        w="50px"
-        h="50px"
-        objectFit="cover"
-        borderRadius="50%"
-        marginRight="20px"
-        >
+                  <Button
+                    // marginLeft="8em"
+                    type={"submit"}
+                    bgColor="#3dad5b"
+                    color={"white"}
+                    mt="2"
+                    w={"20"}
+                    borderRadius="20px"
+                    fontSize="15px"
+                  >
+                    Reply
+                  </Button>
+                </HStack>
+              </form>
 
+              <Box display="flex" flexDirection="column" gap={5} mt="8">
+                {replies?.map((reply) => {
+                  console.log(reply.user?.full_name, "ini nama")
+                  return (
+                    <Box>
+                      <Flex>
+                        <Image
+                          src={
+                            reply.user?.profile_picture
+                              ? reply.user?.profile_picture
+                              : "/user-placeholder.png"
+                          }
+                          w="50px"
+                          h="50px"
+                          objectFit="cover"
+                          borderRadius="50%"
+                          marginRight="20px"
+                        ></Image>
 
-        </Image>
-        <Text marginTop="3" > {reply.content}</Text>
-      </Flex>
-      // </Box>
-    )
-  })}
-</Box>
-            {/* <Box bg="blue" alignItems="center"  >
-              {replies?.map((reply, index) => (
-                <Text key={index}> {reply.content}</Text>
-              ))}
-            </Box> */}
+                        <Text fontWeight="bold" fontSize="18">
+                          {reply.user?.full_name}
+                        </Text>
+                        <Text marginLeft="10px" fontSize="18">
+                          @{reply.user?.username}
+                        </Text>
+                        {/* <Box  > */}
 
-          </VStack>
-          <ProfilePage />
+                        <Text marginTop="8"> {reply.content}</Text>
+                        {/* </Box> */}
+                      </Flex>
+                    </Box>
+                  )
+                })}
+              </Box>
+            </Box>
+            {/* </VStack> */}
+          </GridItem>
+          <GridItem colSpan={4}>
+            <ProfilePage />
+          </GridItem>
         </Grid>
       ) : (
         <Alert
@@ -150,7 +145,6 @@ const ThreadDetail = () => {
           alignSelf="center"
           h="200px"
           w="100%"
-
         >
           <AlertIcon boxSize="20px" mr="0" />
           <AlertTitle>Thread Not Found</AlertTitle>

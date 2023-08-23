@@ -1,20 +1,15 @@
 import { Repository } from "typeorm"
 import { Thread } from "../entities/Threads"
 import { AppDataSource } from "../data-source"
-import { Request, Response } from "express"
-import { createdThreadSchema } from "../utils/validators/thread"
-import { useParams } from "react-router-dom"
-import { v2 as cloudinary } from "cloudinary"
-import cloudinaryConfig from "../libs/config"
 import { Reply } from "../entities/Reply"
 
 class RepliesService {
   private readonly replyRepository: Repository<Reply> =
     AppDataSource.getRepository(Reply)
 
-  async find(req: Request, res: Response) {
+  async find(reqQuery: any): Promise<any> {
     try {
-      const threadId = parseInt(req.query.thread_id as string)
+      const threadId = parseInt(reqQuery.thread_id ?? 0)
 
       const replies = await this.replyRepository.find({
         relations: ["user"],
@@ -28,30 +23,28 @@ class RepliesService {
         },
       })
 
-      return res.status(200).json(replies)
+      return replies
     } catch (err) {
-      return res.status(500).json("Server error")
+      throw new Error("Server error")
     }
   }
 
-  async create(req: Request, res: Response) {
+  async create(reqBody: any, loginSession: any): Promise<any> {
     try {
-      const loginSession = res.locals.loginSession
-
-      const replies = this.replyRepository.create({
-        content: req.body.content,
+      const reply = this.replyRepository.create({
+        content: reqBody.content,
         user: {
           id: loginSession.user.id,
         },
         thread: {
-          id: req.body.thread_id,
+          id: reqBody.thread_id,
         },
       })
-
-      const createdReplies = this.replyRepository.save(replies)
-      return res.status(200).json(replies)
+      await this.replyRepository.save(reply)
+      return reply
     } catch (err) {
-      return res.status(500).json(err)
+      console.log(err)
+      throw new Error(err)
     }
   }
 }
