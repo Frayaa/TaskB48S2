@@ -1,47 +1,39 @@
-import ProfilePage from "@/features/profilPage/Profile"
-import SideBar from "@/features/sidebar/SideBar"
-import { ThreadCard } from "@/features/thread/component/Threadcard"
-import { IThreadCard, IThreadPost } from "@/interfaces/thread"
+import {  IThreadPost } from "@/interfaces/thread"
 import { API } from "@/lib/api"
 import { GET_THREADS } from "@/stores/rootReducer"
+import { RootState } from "@/stores/types/rootState"
 import {
-  Container,
-  VStack,
-  Box,
-  Grid,
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
   useToast,
-  Image,
-  Text,
 } from "@chakra-ui/react"
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react"
+import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
-import { useParams } from "react-router-dom"
 
-const UseFetchThreads = () => {
+const useFetchThreads = () => {
   // const [thread] = useState(threads)
   const inputFileRef = useRef<HTMLInputElement>(null)
 
   const dispatch = useDispatch()
   const toast = useToast()
-  const [thread, setThread] = useState<IThreadCard[]>([])
   const [form, setForm] = useState<IThreadPost>({
     content: "",
     image: "",
   })
   const [previewImage, setPreviewImage] = useState<string>("")
+  const threads = useSelector((state: RootState) => state.thread.threads)
   const [page, setPage] = useState(1)
 
   const fetchData = async () => {
     try {
-      const response = await API.get(`/threads`)
+      const response = await API.get(`/threads`, {
+        params: {
+          _page: page
+        }
+      })
       console.log("ini data", response.data)
-      setThread(response.data)
-      // dispatch(GET_THREADS(response.data))
-      console.log(GET_THREADS(response.data), "get thread")
+      // setThread(response.data)
+      dispatch(GET_THREADS(response.data))
+      // console.log(GET_THREADS(response.data), "get thread")
     } catch (err) {
       console.log(err, "error fetching")
     }
@@ -96,26 +88,24 @@ const UseFetchThreads = () => {
     }
   }
 
-   const seeMoreBtnHandler = () => {
-      setPage(page + 1)
-    }
+  // const seeMoreBtnHandler = () => {
+  //   setPage(page + 1)
+  // }
   useEffect(() => {
     fetchData()
   }, [])
 
-  
-  // const threadId = id;
 
   return {
     changeHandler,
     handleSubmit,
-    thread,
     form,
     previewImage,
     fetchData,
     inputFileRef,
-    seeMoreBtnHandler,
+    threads,
+    // seeMoreBtnHandler,
   }
 }
 
-export default UseFetchThreads
+export default useFetchThreads

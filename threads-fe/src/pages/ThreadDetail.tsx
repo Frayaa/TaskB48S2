@@ -6,52 +6,34 @@ import {
   AlertTitle,
   Box,
   Button,
-  Container,
   Flex,
   FormControl,
-  FormLabel,
   Grid,
   GridItem,
   HStack,
-  Heading,
   Image,
   Input,
   Text,
-  VStack,
 } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
-import { API } from "@/lib/api"
-import { IThreadCard } from "@/interfaces/thread"
-import { ThreadCard } from "."
-import { IReplyPost } from "@/interfaces/reply"
+import { ThreadCard } from "../features/thread/component"
 import SideBar from "@/features/sidebar/SideBar"
 import ProfilePage from "@/features/profilPage/Profile"
-import UseReply from "@/hooks/useReply"
+import useReply from "@/hooks/useReply"
 import UseThreadDetail from "@/hooks/useThreadDetail"
 
 const ThreadDetail = () => {
   const { id } = useParams<{ id: any }>()
-  const { changeHandler, handleSubmit } = UseReply()
+  const { changeHandler, handleSubmit, getReplies, replies } = useReply()
   const { getThreadById, threadDetail } = UseThreadDetail()
-  const { getReplies, replies } = UseReply()
-
-  useEffect(() => {
-    getThreadById()
-  }, [id])
-
-  useEffect(() => {
-    getReplies()
-  }, [threadDetail])
 
   return (
-    <Box>
+    <Box >
       {threadDetail ? (
         <Grid templateColumns="repeat(12, 1fr)">
           <GridItem colSpan={3}>
             <SideBar />
           </GridItem>
-          <GridItem colSpan={5}>
-            {/* <VStack borderRight={"1px"}> */}
+          <GridItem colSpan={5} mt="8">
             <ThreadCard
               // key={index}
               id={threadDetail.id}
@@ -63,6 +45,7 @@ const ThreadDetail = () => {
               image={threadDetail.image}
               is_liked={threadDetail.is_liked}
             />
+
             <Box marginLeft="24">
               <form onSubmit={handleSubmit}>
                 <HStack>
@@ -72,6 +55,7 @@ const ThreadDetail = () => {
                         width="46vh"
                         name="content"
                         type="content"
+                       
                         onChange={changeHandler}
                         placeholder="Type Your Replies"
                       />
@@ -95,10 +79,16 @@ const ThreadDetail = () => {
 
               <Box display="flex" flexDirection="column" gap={5} mt="8">
                 {replies?.map((reply) => {
-                  console.log(reply.user?.full_name, "ini nama")
                   return (
-                    <Box>
-                      <Flex>
+                    <Box
+                      key={reply.user?.id}
+                      // style={{
+                      //   border: "0.5px solid black",
+                      //   padding: "10px",
+                      //   // borderRadius: "20",
+                      // }}
+                    >
+                      <Flex alignItems="center">
                         <Image
                           src={
                             reply.user?.profile_picture
@@ -111,18 +101,22 @@ const ThreadDetail = () => {
                           borderRadius="50%"
                           marginRight="20px"
                         ></Image>
+                        {/* <VStack> */}
 
-                        <Text fontWeight="bold" fontSize="18">
-                          {reply.user?.full_name}
-                        </Text>
-                        <Text marginLeft="10px" fontSize="18">
-                          @{reply.user?.username}
-                        </Text>
-                        {/* <Box  > */}
-
-                        <Text marginTop="8"> {reply.content}</Text>
-                        {/* </Box> */}
+                        <HStack>
+                          <Text fontWeight="bold" fontSize="18">
+                            {reply.user?.full_name}
+                          </Text>
+                          <Text marginLeft="10px" fontSize="18">
+                            @{reply.user?.username}
+                          </Text>
+                        </HStack>
+                        {/* </VStack> */}
                       </Flex>
+                      <Box marginBottom="3">
+                        <Text marginTop="5"> {reply.content}</Text>
+                      </Box>
+                      <hr />
                     </Box>
                   )
                 })}
@@ -130,7 +124,7 @@ const ThreadDetail = () => {
             </Box>
             {/* </VStack> */}
           </GridItem>
-          <GridItem colSpan={4}>
+          <GridItem colSpan={4} mt="2">
             <ProfilePage />
           </GridItem>
         </Grid>

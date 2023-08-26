@@ -13,6 +13,7 @@ import {
   HStack,
   GridItem,
   Grid,
+  Card,
 } from "@chakra-ui/react"
 import {
   AiFillFacebook,
@@ -27,12 +28,13 @@ export default function ProfilePage() {
   console.log(auth, "authnya")
   console.log(auth.data, "authnya data")
   return (
-    <VStack marginTop="30px" marginLeft="20px" position="relative">
-      <GridItem
-        w="50vh"
+    <VStack marginTop="30px"  position="relative" ml="20" mt="10">
+      <Card
+        w="44vh"
         backgroundColor="#505250"
         padding="5"
         borderRadius="10"
+     
       >
         <Heading
           fontSize={"2xl"}
@@ -66,7 +68,7 @@ export default function ProfilePage() {
             marginTop="50px"
             borderRadius="20px"
             height="35px"
-            backgroundColor="#d9dedc"
+            backgroundColor="#787d7a"
           >
             Edit Profile
           </Button>
@@ -92,10 +94,10 @@ export default function ProfilePage() {
             </Text>
           </HStack>
         </Box>
-      </GridItem>
+      </Card>
 
-      <GridItem
-        w="50vh"
+      <Card
+        w="44vh"
         backgroundColor="#505250"
         padding="5"
         borderRadius="10"
@@ -236,10 +238,10 @@ export default function ProfilePage() {
             </Button>
           </HStack>
         </Box>
-      </GridItem>
+      </Card>
 
-      <GridItem
-        w="50vh"
+      <Card
+        w="44vh"
         backgroundColor="#505250"
         padding="5"
         borderRadius="10"
@@ -256,7 +258,7 @@ export default function ProfilePage() {
           </Heading>
           <Text>Powered by DumbWays Indonesia . #1 Coding Bootcamp</Text>
         </Box>
-      </GridItem>
+      </Card>
     </VStack>
   )
 }

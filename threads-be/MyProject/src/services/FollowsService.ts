@@ -81,6 +81,7 @@ class FollowService {
       }
     } catch (err) {
       console.log(err)
+      throw new Error(err.message)
     }
   }
 
@@ -105,15 +106,19 @@ class FollowService {
         throw new Error("You can't Follow yourself")
       }
 
-      const userExist = await this.followRepository.count({
+      const userExist = await this.userRepository.findOne({
         where: {
           id: reqBody.followed_user_id,
         },
       })
 
-      if (userExist < 0) {
+      if (!userExist) {
         throw new Error("This user doesn't exist")
       }
+
+      console.log("Followed User ID:", reqBody.followed_user_id)
+      console.log("User Exist Result:", userExist)
+
 
       const follow = this.followRepository.create({
         follower: {

@@ -40,7 +40,17 @@ export const ThreadCard = (props: IThreadCard) => {
 
   return (
     <>
-      <Container width="500vh" position="relative" marginBottom="10">
+      <Container
+        position="relative"
+        marginBottom="10"
+        border="1px"
+        pb="6"
+        mt="4"
+        borderColor="#4f5450"
+        borderRadius="10"
+        ml="8"
+
+      >
         <Flex marginTop="20px">
           <Image
             height="60px"
@@ -65,7 +75,7 @@ export const ThreadCard = (props: IThreadCard) => {
               <Image
                 src={props.image}
                 width="60vh"
-                height="70vh"
+                height="50vh"
                 marginTop="15px"
               />
             </Box>

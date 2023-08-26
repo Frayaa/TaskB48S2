@@ -2,7 +2,7 @@ import { AppDataSource } from "../data-source"
 import { cloudinaryConfig } from "../libs/cloudinary"
 import * as amqp from "amqplib"
 import ThreadWorker from "./ThreadWorker"
-import "dotenv/config"
+
 
 class WorkerHub {
   constructor() {

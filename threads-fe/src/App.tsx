@@ -15,7 +15,9 @@ import { AUTH_CHECK, AUTH_ERROR } from "./stores/rootReducer"
 import Login from "./pages/Login"
 import { RootState } from "./stores/types/rootState"
 import { useSelector } from "react-redux"
-import ThreadDetail from "./features/thread/component/ThreadDetail"
+import ThreadDetail from "./pages/ThreadDetail"
+import { Box, CircularProgress } from "@chakra-ui/react"
+import Follows from "./pages/Follows"
 
 export default function App() {
   const [isloading, setIsLoading] = useState<boolean>(true)
@@ -64,11 +66,16 @@ export default function App() {
 
   return (
     <>
-      {isloading ? null : (
+      {isloading ? (
+        <Box textAlign={"center"} justifyContent="center" alignItems="center">
+          <CircularProgress color="purple" isIndeterminate />
+        </Box>
+      ) : (
         <Routes>
           <Route element={<IsLogin />}>
             <Route element={<Home />} path="/"></Route>
             <Route element={<ThreadDetail />} path="/thread/:id"></Route>
+            <Route element={<Follows />} path="/follows"></Route>
           </Route>
           <Route element={<IsNotLogin />}>
             <Route element={<Register />} path="/register"></Route>

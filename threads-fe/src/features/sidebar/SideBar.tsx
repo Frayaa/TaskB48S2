@@ -31,54 +31,56 @@ const SideBar = () => {
       <Container
         width="42vh"
         position="fixed"
-        marginLeft="30px"
+        marginLeft="20px"
         marginTop="50px"
         backgroundColor="#505250"
         p="5"
         borderRadius="10"
         h="46vh"
       >
-        <Heading marginLeft="5">Circle</Heading>
+        <Heading marginLeft="5" color="#3dad5b">
+          Circle
+        </Heading>
         <VStack float="left">
           <ButtonGroup flexDirection="column" gap="3" marginTop="20px">
             <NavLink
               to="/"
-              //   style={({ isActive }) => ({
-              //     backgroundColor: isActive ? "blue" : "grey",
-              //   })}
+              style={({ isActive }) => ({
+                backgroundColor: isActive ? "#31ad80" : "#505250", width:"108px", borderRadius:"5px", marginLeft: "2px"
+              })}
             >
-              <Button backgroundColor="#505250" marginLeft="2">
+              <Button marginLeft="2">
                 <AiFillHome style={{ marginRight: "10" }} /> Home
               </Button>
             </NavLink>
 
             <NavLink
               to="/search"
-              //   style={({ isActive }) => ({
-              //     backgroundColor: isActive ? "blue" : "grey",
-              //   })}
+              style={({ isActive }) => ({
+                backgroundColor: isActive ? "#31ad80" : "#505250", width:"108px", borderRadius:"5px"
+              })}
             >
-              <Button backgroundColor="#505250">
+              <Button >
                 <AiOutlineSearch style={{ marginRight: "10" }} /> Search
               </Button>
             </NavLink>
 
             <NavLink
-              to="/follow"
-              //   style={({ isActive }) => ({
-              //     backgroundColor: isActive ? "blue" : "grey",
-              //   })}
+              to="/follows"
+              style={({ isActive }) => ({
+                backgroundColor: isActive ? "#31ad80" : "#505250", width:"108px", borderRadius:"5px"
+              })}
             >
-              <Button backgroundColor="#505250">
+              <Button >
                 <RiUserFollowFill style={{ marginRight: "10" }} /> Follow
               </Button>
             </NavLink>
 
             <NavLink
               to="/profile"
-              //   style={({ isActive }) => ({
-              //     backgroundColor: isActive ? "blue" : "grey",
-              //   })}
+              style={({ isActive }) => ({
+                backgroundColor: isActive ? "#31ad80" : "#505250", width:"108px", borderRadius:"5px"
+              })}
             >
               <Button backgroundColor="#505250">
                 <CgProfile style={{ marginRight: "10" }} /> Profile
@@ -98,15 +100,13 @@ const SideBar = () => {
             as={Stack}
             direction={{ base: "column", md: "row" }}
             align={{ base: "center", md: "center" }}
-            
           >
             <Button
-              w="100%"
               cursor="pointer"
               variant="outlined"
-              borderRadius="0px"
-              border="1px solid"
-              _hover={{ bg: "#005e9d" }}
+              backgroundColor="#3dad5b"
+              width="34vh"
+              _hover={{ bg: "#545c56" }}
               onClick={btnLogout}
             >
               LOGOUT
