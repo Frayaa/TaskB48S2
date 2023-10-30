@@ -12,7 +12,7 @@ export const AppDataSource = new DataSource({
   port: 36480,
   username: "postgres",
   password: "E-cGD2bD*6ddCd4aF5b1*BbE53DAE*6-",
-  database: "db_threads_be",
+  database: "railway",
   synchronize: true,
   logging: false,
   entities: [Follow, Thread, Like, Reply, User],
