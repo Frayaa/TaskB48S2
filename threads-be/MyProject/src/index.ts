@@ -18,7 +18,7 @@ AppDataSource.initialize()
 
     app.use(cors())
 
-    app.use("/api/v1", router)
+    app.use("/", router)
     app.use("/uploads", express.static("uploads"))
 
     // ThreadWorker()
