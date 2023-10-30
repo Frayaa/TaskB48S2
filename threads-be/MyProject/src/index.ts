@@ -23,9 +23,9 @@ AppDataSource.initialize()
 
     // ThreadWorker()
 
-    // router.get("/", (req: Request, res: Response) => {
-    //   res.send("Hello World")
-    // })
+    router.get("/", (req: Request, res: Response) => {
+      res.send("Hello World")
+    })
 
     // router.get("/threads", (req: Request, res: Response) => {
     //   res.status(200).json({
