@@ -1,5 +1,4 @@
 import {
-  BrowserRouter,
   Navigate,
   Outlet,
   Route,
@@ -18,6 +17,9 @@ import { useSelector } from "react-redux"
 import ThreadDetail from "./pages/ThreadDetail"
 import { Box, CircularProgress } from "@chakra-ui/react"
 import Follows from "./pages/Follows"
+import EditProfile from "./pages/EditProfile"
+import Profile from "./pages/Profile"
+import Search from "./pages/Search"
 
 export default function App() {
   const [isloading, setIsLoading] = useState<boolean>(true)
@@ -76,6 +78,10 @@ export default function App() {
             <Route element={<Home />} path="/"></Route>
             <Route element={<ThreadDetail />} path="/thread/:id"></Route>
             <Route element={<Follows />} path="/follows"></Route>
+            <Route element={<EditProfile />} path="/profile"></Route>
+            <Route element={<Profile/>} path="/me/:id"></Route>
+            <Route element={<Search/>} path="/search"></Route>
+
           </Route>
           <Route element={<IsNotLogin />}>
             <Route element={<Register />} path="/register"></Route>

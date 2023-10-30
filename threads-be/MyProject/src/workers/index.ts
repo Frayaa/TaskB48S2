@@ -1,7 +1,8 @@
 import { AppDataSource } from "../data-source"
 import { cloudinaryConfig } from "../libs/cloudinary"
-import * as amqp from "amqplib"
+import amqp = require ("amqplib")
 import ThreadWorker from "./ThreadWorker"
+// import ProfileWorker from "./ProfileWorker"
 
 
 class WorkerHub {
@@ -12,6 +13,7 @@ class WorkerHub {
         const connection = await amqp.connect("amqp://localhost")
        
         ThreadWorker.create("thread_queue", connection)
+        // ProfileWorker.patch("profile_queue", connection)
       })
       .catch((error) => console.log(error))
   }

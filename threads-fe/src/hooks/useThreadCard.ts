@@ -4,6 +4,7 @@ import { RootState } from "@/stores/types/rootState"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import useFetchThreads from "./useFetchThreads"
+import { useEffect } from "react"
 
 const useThreadCard = () => {
   const dispatch = useDispatch()
@@ -19,11 +20,17 @@ const useThreadCard = () => {
         const response = await API.delete(`/like/${id}`)
         dispatch(LIKE_THREADS({ id: id, isLiked: false }))
       }
+
+      
       fetchData()
     } catch (err) {
       console.log(err)
     }
   }
+
+//   useEffect(() => {
+// fetchData()
+//   }, [])
 
   return {
     threads,

@@ -19,4 +19,10 @@ export interface IAUTH {
   profile_picture: string
   description: string
 }
+export interface IProfile {
+  full_name: string
+  username: string
+  profile_picture: MediaSource | Blob | string
+  description: string
+}
 

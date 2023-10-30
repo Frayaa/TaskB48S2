@@ -79,45 +79,46 @@ class ThreadService {
     }
   }
 
-  async create(req: Request, res: Response) {
-    try {
-      const filename = res.locals.filename
-      const data = {
-        content: req.body.content,
-        image: filename,
-      }
+  // async create(req: Request, res: Response) {
+  //   try {
+  //     const filename = res.locals.filename
+  //     const data = {
+  //       content: req.body.content,
+  //       image: filename,
+  //     }
 
-      const loginSession = res.locals.loginSession
-      console.log(loginSession)
+  //     const loginSession = res.locals.loginSession
+  //     console.log(loginSession)
 
-      const { error } = createdThreadSchema.validate(data)
+  //     const { error } = createdThreadSchema.validate(data)
 
       
-            if (error) {
-              return res.status(400).json({
-                error: error,
-              })
-            }
-      cloudinaryConfig()
+  //           if (error) {
+  //             return res.status(400).json({
+  //               error: error,
+  //             })
+  //           }
+  //     cloudinaryConfig()
 
-      const cloudResponse = await cloudinary.uploader.upload(
-        "./uploads/" + filename
-      )
+  //     const cloudResponse = await cloudinary.uploader.upload(
+  //       "./uploads/" + filename
+  //     )
 
-      const thread = this.threadRepository.create({
-        content: data.content,
-        image: cloudResponse.secure_url,
-        user: {
-          id: loginSession.user.id,
-        },
-      })
+  //     const thread = this.threadRepository.create({
+  //       content: data.content,
+  //       image: cloudResponse.secure_url,
+  //       user: {
+  //         id: loginSession.user.id,
+  //       },
+  //     })
 
-      const createdThread = this.threadRepository.save(thread)
-      return res.status(200).json(thread)
-    } catch (err) {
-      return res.status(500).json(err)
-    }
-  }
+  //     const createdThread = this.threadRepository.save(thread)
+  //     return res.status(200).json(thread)
+  //   } catch (err) {
+  //     return res.status(500).json(err)
+  //   }
+  // }
+
   async delete(req: Request, res: Response) {
     try {
       const id = parseInt(req.params.id)

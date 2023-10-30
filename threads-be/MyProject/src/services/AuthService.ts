@@ -3,8 +3,8 @@ import { AppDataSource } from "../data-source"
 import { Request, Response } from "express"
 import { User } from "../entities/User"
 import { loginSchema, registerSchema } from "../utils/validators/user"
-import * as jwt from "jsonwebtoken"
-import * as bcrypt from "bcrypt"
+import jwt = require ("jsonwebtoken")
+import bcrypt = require ("bcrypt")
 
 class AuthService {
   private readonly authRepository: Repository<User> =

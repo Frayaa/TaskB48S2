@@ -23,11 +23,11 @@ import UseThreadDetail from "@/hooks/useThreadDetail"
 
 const ThreadDetail = () => {
   const { id } = useParams<{ id: any }>()
-  const { changeHandler, handleSubmit, getReplies, replies } = useReply()
+  const { changeHandler, handleSubmit, replies } = useReply()
   const { getThreadById, threadDetail } = UseThreadDetail()
-
+  console.log("baaru", replies)
   return (
-    <Box >
+    <Box>
       {threadDetail ? (
         <Grid templateColumns="repeat(12, 1fr)">
           <GridItem colSpan={3}>
@@ -55,7 +55,6 @@ const ThreadDetail = () => {
                         width="46vh"
                         name="content"
                         type="content"
-                       
                         onChange={changeHandler}
                         placeholder="Type Your Replies"
                       />
@@ -78,48 +77,49 @@ const ThreadDetail = () => {
               </form>
 
               <Box display="flex" flexDirection="column" gap={5} mt="8">
-                {replies?.map((reply) => {
-                  return (
-                    <Box
-                      key={reply.user?.id}
-                      // style={{
-                      //   border: "0.5px solid black",
-                      //   padding: "10px",
-                      //   // borderRadius: "20",
-                      // }}
-                    >
-                      <Flex alignItems="center">
-                        <Image
-                          src={
-                            reply.user?.profile_picture
-                              ? reply.user?.profile_picture
-                              : "/user-placeholder.png"
-                          }
-                          w="50px"
-                          h="50px"
-                          objectFit="cover"
-                          borderRadius="50%"
-                          marginRight="20px"
-                        ></Image>
-                        {/* <VStack> */}
+                {Array.isArray(replies) && replies.length > 0 &&
+                  replies?.map((reply) => {
+                    return (
+                      <Box
+                        key={reply.user?.id}
+                        // style={{
+                        //   border: "0.5px solid black",
+                        //   padding: "10px",
+                        //   // borderRadius: "20",
+                        // }}
+                      >
+                        <Flex alignItems="center">
+                          <Image
+                            src={
+                              reply.user?.profile_picture
+                                ? reply.user?.profile_picture
+                                : "/user-placeholder.png"
+                            }
+                            w="50px"
+                            h="50px"
+                            objectFit="cover"
+                            borderRadius="50%"
+                            marginRight="20px"
+                          ></Image>
+                          {/* <VStack> */}
 
-                        <HStack>
-                          <Text fontWeight="bold" fontSize="18">
-                            {reply.user?.full_name}
-                          </Text>
-                          <Text marginLeft="10px" fontSize="18">
-                            @{reply.user?.username}
-                          </Text>
-                        </HStack>
-                        {/* </VStack> */}
-                      </Flex>
-                      <Box marginBottom="3">
-                        <Text marginTop="5"> {reply.content}</Text>
+                          <HStack>
+                            <Text fontWeight="bold" fontSize="18">
+                              {reply.user?.full_name}
+                            </Text>
+                            <Text marginLeft="10px" fontSize="18">
+                              @{reply.user?.username}
+                            </Text>
+                          </HStack>
+                          {/* </VStack> */}
+                        </Flex>
+                        <Box marginBottom="3">
+                          <Text marginTop="5"> {reply.content}</Text>
+                        </Box>
+                        <hr />
                       </Box>
-                      <hr />
-                    </Box>
-                  )
-                })}
+                    )
+                  })}
               </Box>
             </Box>
             {/* </VStack> */}

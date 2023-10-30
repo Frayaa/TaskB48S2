@@ -1,5 +1,5 @@
 import { EventEmitter } from "stream"
-import * as amqp from "amqplib"
+import  amqp = require ("amqplib")
 import "dotenv/config"
 import { AppDataSource } from "../data-source"
 import { Thread } from "../entities/Threads"

@@ -12,9 +12,10 @@ import { NavLink, useNavigate } from "react-router-dom"
 import { AiFillHome, AiOutlineSearch } from "react-icons/ai"
 import { RiUserFollowFill } from "react-icons/ri"
 import { CgProfile } from "react-icons/cg"
-import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { AUTH_LOGOUT } from "@/stores/rootReducer"
+import { RootState } from "@/stores/types/rootState"
+import { useSelector } from "react-redux"
 
 const SideBar = () => {
   const navigate = useNavigate()
@@ -25,9 +26,10 @@ const SideBar = () => {
     dispatch(AUTH_LOGOUT())
     navigate("/login")
   }
-
+  const auth = useSelector((state: RootState) => state.auth.data)
   return (
     <>
+    
       <Container
         width="42vh"
         position="fixed"
@@ -46,19 +48,25 @@ const SideBar = () => {
             <NavLink
               to="/"
               style={({ isActive }) => ({
-                backgroundColor: isActive ? "#31ad80" : "#505250", width:"108px", borderRadius:"5px", marginLeft: "2px"
+                backgroundColor: isActive ? "#31ad80" : "#505250",
+                width: "108px",
+                borderRadius: "5px",
+                marginLeft: "2px",
               })}
             >
-              <Button marginLeft="2">
+              <Button>
                 <AiFillHome style={{ marginRight: "10" }} /> Home
               </Button>
             </NavLink>
 
             <NavLink
               to="/search"
-              style={({ isActive }) => ({
-                backgroundColor: isActive ? "#31ad80" : "#505250", width:"108px", borderRadius:"5px"
-              })}
+             style={({ isActive }) => ({
+              backgroundColor: isActive ? "#31ad80" : "#505250",
+              width: "108px",
+              borderRadius: "5px",
+              marginLeft: "2px",
+            })}
             >
               <Button >
                 <AiOutlineSearch style={{ marginRight: "10" }} /> Search
@@ -67,9 +75,12 @@ const SideBar = () => {
 
             <NavLink
               to="/follows"
-              style={({ isActive }) => ({
-                backgroundColor: isActive ? "#31ad80" : "#505250", width:"108px", borderRadius:"5px"
-              })}
+             style={({ isActive }) => ({
+              backgroundColor: isActive ? "#31ad80" : "#505250",
+              width: "108px",
+              borderRadius: "5px",
+              marginLeft: "2px",
+            })}
             >
               <Button >
                 <RiUserFollowFill style={{ marginRight: "10" }} /> Follow
@@ -77,12 +88,15 @@ const SideBar = () => {
             </NavLink>
 
             <NavLink
-              to="/profile"
-              style={({ isActive }) => ({
-                backgroundColor: isActive ? "#31ad80" : "#505250", width:"108px", borderRadius:"5px"
-              })}
+              to={`/me/${auth.id}`}
+             style={({ isActive }) => ({
+              backgroundColor: isActive ? "#31ad80" : "#505250",
+              width: "108px",
+              borderRadius: "5px",
+              marginLeft: "2px",
+            })}
             >
-              <Button backgroundColor="#505250">
+              <Button >
                 <CgProfile style={{ marginRight: "10" }} /> Profile
               </Button>
             </NavLink>

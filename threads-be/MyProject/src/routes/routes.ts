@@ -1,12 +1,14 @@
 import AuthController from "../controllers/AuthController"
 import ThreadController from "../controllers/ThreadController"
-import * as express from "express"
+import express = require("express") 
 import authenticate from "../middlewares/authMiddleware"
 import { upload } from "../middlewares/uploadFile"
 import RepliesController from "../controllers/RepliesController"
 import ThreadsQueue from "../queues/ThreadsQueue"
 import LikesController from "../controllers/LikesController"
 import FollowsController from "../controllers/FollowsController"
+import ProfileController from "../controllers/ProfileController"
+import ProfileQueue from "../queues/ProfileQueue"
 
 const router = express.Router()
 
@@ -33,6 +35,17 @@ router.delete(
   "/follow/:followed_user_id",
   authenticate,
   FollowsController.delete
+)
+
+router.get("/users", authenticate, ProfileController.find)
+router.get("/user/random", authenticate, ProfileController.getRandomUser)
+router.get("/user/search", ProfileController.search)
+router.get("/user/:id", authenticate, ProfileController.findOne)
+router.patch(
+  "/profile",
+  authenticate,
+  upload("profile_picture"),
+  ProfileController.update
 )
 
 export default router

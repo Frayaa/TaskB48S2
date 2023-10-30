@@ -49,7 +49,7 @@ const useLogin = () => {
       })
     }
   }
-  return { changeHandler, handleLogin, auth }
+  return { changeHandler, handleLogin }
 }
 
 export default useLogin

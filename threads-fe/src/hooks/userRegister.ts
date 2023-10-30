@@ -1,4 +1,4 @@
-import { IRegister } from "@/interfaces/user"
+import { IProfile, IRegister} from "@/interfaces/user"
 import { API } from "@/lib/api"
 import { useToast } from "@chakra-ui/react"
 import { ChangeEvent, FormEvent, useState } from "react"
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 export const useRegister = () => {
   const toast = useToast()
   const navigate = useNavigate()
+
   const [form, setForm] = useState<IRegister>({
     full_name: "",
     username: "",

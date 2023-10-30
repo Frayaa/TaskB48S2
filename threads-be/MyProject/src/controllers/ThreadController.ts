@@ -29,9 +29,9 @@ class ThreadsController {
       })
     }
   }
-  create(req: Request, res: Response) {
-    ThreadService.create(req, res)
-  }
+  // create(req: Request, res: Response) {
+  //   ThreadService.create(req, res)
+  // }
   delete(req: Request, res: Response) {
     ThreadService.delete(req, res)
   }

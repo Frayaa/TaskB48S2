@@ -1,10 +1,8 @@
-import {  IThreadPost } from "@/interfaces/thread"
+import { IThreadPost } from "@/interfaces/thread"
 import { API } from "@/lib/api"
 import { GET_THREADS } from "@/stores/rootReducer"
 import { RootState } from "@/stores/types/rootState"
-import {
-  useToast,
-} from "@chakra-ui/react"
+import { useToast } from "@chakra-ui/react"
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
@@ -19,21 +17,18 @@ const useFetchThreads = () => {
     content: "",
     image: "",
   })
+  const [thread, setThread] = useState()
   const [previewImage, setPreviewImage] = useState<string>("")
   const threads = useSelector((state: RootState) => state.thread.threads)
-  const [page, setPage] = useState(1)
+  // const [page, setPage] = useState(1)
 
   const fetchData = async () => {
     try {
-      const response = await API.get(`/threads`, {
-        params: {
-          _page: page
-        }
-      })
+      const response = await API.get(`/threads`)
       console.log("ini data", response.data)
       // setThread(response.data)
       dispatch(GET_THREADS(response.data))
-      // console.log(GET_THREADS(response.data), "get thread")
+      // console.log(response.data, "get thread")
     } catch (err) {
       console.log(err, "error fetching")
     }
@@ -78,7 +73,6 @@ const useFetchThreads = () => {
       })
 
       fetchData()
-      console.log(fetchData, "ini baru")
     } catch (err) {
       console.log(err)
       toast({
@@ -94,7 +88,6 @@ const useFetchThreads = () => {
   useEffect(() => {
     fetchData()
   }, [])
-
 
   return {
     changeHandler,

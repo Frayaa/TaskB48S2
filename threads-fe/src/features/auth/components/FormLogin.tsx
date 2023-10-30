@@ -22,7 +22,7 @@ import { Link } from "react-router-dom"
 import useLogin from "@/hooks/userLogin"
 
 const FormLogin = () => {
-  const { changeHandler, handleLogin, auth } = useLogin()
+  const { changeHandler, handleLogin} = useLogin()
   const [showPassword, setShowPassword] = useState(false)
 
   return (

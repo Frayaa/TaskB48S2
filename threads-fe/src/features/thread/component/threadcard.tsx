@@ -14,28 +14,31 @@ import { useEffect, useState } from "react"
 import { API } from "@/lib/api"
 import { IThreadCard } from "@/interfaces/thread"
 import UseThreadCard from "@/hooks/useThreadCard"
+import { useSelector } from "react-redux"
+import { RootState } from "@/stores/types/rootState"
+import { formatDistanceToNow } from "date-fns"
+
 // import SideBar from "@/features/sidebar/SideBar"
 
 export const ThreadCard = (props: IThreadCard) => {
   // console.log(props, "Prpop")
   const navigate = useNavigate()
+  const threads = useSelector((state: RootState) => state.thread.threads)
 
   const [isLiked, setIsLiked] = useState(props.is_liked)
-  // const [likeCount, setLikeCount] = useState(props.likes_count || 0)
-
-  // const handleLikeClick = () => {
-  //   if (isLiked) {
-  //     setLikeCount(likeCount - 1)
-  //   } else {
-  //     setLikeCount(likeCount + 1)
-  //   }
-  //   setIsLiked(!isLiked)
-  // }
 
   const { handleLike } = UseThreadCard()
+  const formattedPostedAt =
+    props.posted_at !== undefined
+      ? formatDistanceToNow(new Date(props.posted_at), {
+          addSuffix: true,
+        })
+      : "Unknown Date"
 
   useEffect(() => {
-    setIsLiked(props.is_liked)
+    if (props.is_liked !== isLiked) {
+      setIsLiked(props.is_liked)
+    }
   }, [props.is_liked])
 
   return (
@@ -49,26 +52,29 @@ export const ThreadCard = (props: IThreadCard) => {
         borderColor="#4f5450"
         borderRadius="10"
         ml="8"
-
       >
         <Flex marginTop="20px">
-          <Image
-            height="60px"
-            borderRadius="50%"
-            width="60px"
-            objectFit="cover"
-            marginTop="25px"
-            src={props.user?.profile_picture}
-          />
+          <Link to={`/me/${props.user?.id}`}>
+            <Image
+              height="60px"
+              borderRadius="50%"
+              width="60px"
+              objectFit="cover"
+              marginTop="25px"
+              src={props.user?.profile_picture}
+            />
+          </Link>
           <Grid marginLeft="20px" marginTop="20px">
             <Box
               cursor={"pointer"}
-              onClick={() => navigate(`/thread/${props.id}`)}
+              onClick={() => navigate(`/thread/${props.user?.id}`)}
             >
-              <Flex>
-                <Text fontWeight="bold">{props.user?.full_name}</Text>
-                <Text marginLeft="10px">@{props.user?.username}</Text>
-                <Text marginLeft="10px">{props.posted_at}</Text>
+              <Flex justifyContent="space-between">
+                <Box>
+                  <Text fontWeight="bold">{props.user?.full_name}</Text>
+                  <Text>@{props.user?.username}</Text>
+                </Box>
+                <Text ml="auto">{formattedPostedAt}</Text>
               </Flex>
               <Text noOfLines={[1, 2, 3]}>{props.content}</Text>
 

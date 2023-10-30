@@ -119,7 +119,6 @@ class FollowService {
       console.log("Followed User ID:", reqBody.followed_user_id)
       console.log("User Exist Result:", userExist)
 
-
       const follow = this.followRepository.create({
         follower: {
           id: loginSession.user.id,

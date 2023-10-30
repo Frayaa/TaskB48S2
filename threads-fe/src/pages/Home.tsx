@@ -12,9 +12,6 @@ import {
   Image,
   HStack,
   GridItem,
-  CircularProgress,
-  Spinner,
-  Flex,
 } from "@chakra-ui/react"
 import { useEffect } from "react"
 import { BiSolidImageAdd } from "react-icons/bi"
@@ -24,14 +21,15 @@ export default function Home() {
     threads,
     form,
     previewImage,
-    fetchData,
     changeHandler,
     handleSubmit,
     inputFileRef,
   } = useFetchThreads()
-  useEffect(() => {
-    fetchData()
-  }, [])
+
+
+  // useEffect(() => {
+  //   fetchData()
+  // }, [threads])
 
   return (
     <>

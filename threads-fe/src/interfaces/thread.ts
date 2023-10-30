@@ -1,9 +1,11 @@
 export interface IUser {
     id?: number
-    username?: string
     full_name?: string
+    username?: string
     email?: string
     profile_picture?: string
+    user_id?: number
+    is_followed?: boolean
   }
   
   export interface IThreadCard {

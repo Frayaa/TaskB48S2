@@ -22,7 +22,7 @@ class RepliesService {
           id: "DESC",
         },
       })
-
+      console.log(replies)
       return replies
     } catch (err) {
       throw new Error("Server error")

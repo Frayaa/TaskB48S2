@@ -1,21 +1,17 @@
 import { AppDataSource } from "./data-source"
-import * as express from "express"
+import express = require("express")
 import { Request, Response } from "express"
-import * as cors from 'cors'
+import cors = require("cors")
 import router from "./routes/routes"
-import 'dotenv/config' 
-import ThreadWorker from "./workers/ThreadWorker"
-
+import "dotenv/config"
 
 // const threadRoute = require("./routes/threadRoute")
 // const AuthRoute = require("./routes/AuthRoute")
-
 
 AppDataSource.initialize()
   .then(async () => {
     const app = express()
     const port = 5000
-
 
     // const router = express.Router()
     app.use(express.json())
@@ -24,7 +20,7 @@ AppDataSource.initialize()
 
     app.use("/api/v1", router)
     app.use("/uploads", express.static("uploads"))
- 
+
     // ThreadWorker()
 
     // router.get("/", (req: Request, res: Response) => {

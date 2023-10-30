@@ -3,7 +3,7 @@ import {
     PrimaryGeneratedColumn,
     ManyToOne,
   } from "typeorm"
-  import { User } from "./User"
+import { User } from "./User"
   
   @Entity({ name: "follows" })
   export class Follow {

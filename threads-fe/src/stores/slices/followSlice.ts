@@ -27,6 +27,7 @@ export const followSlice = createSlice({
         }
         return follow
       })
+      
     },
   },
 })
