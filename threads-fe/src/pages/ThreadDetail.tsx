@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react"
 import { ThreadCard } from "../features/thread/component"
 import SideBar from "@/features/sidebar/SideBar"
-import ProfilePage from "@/features/profilPage/ProfilePage"
+import ProfilePage from "@/features/profilPage/Profile"
 import useReply from "@/hooks/useReply"
 import UseThreadDetail from "@/hooks/useThreadDetail"
 

@@ -1,5 +1,5 @@
 import FollowCard from "@/features/follow/FollowCard"
-import ProfilePage from "@/features/profilPage/ProfilePage"
+import ProfilePage from "@/features/profilPage/Profile"
 import SideBar from "@/features/sidebar/SideBar"
 import { API } from "@/lib/api"
 import { GET_FOLLOWS, SET_FOLLOWS_STATE } from "@/stores/rootReducer"

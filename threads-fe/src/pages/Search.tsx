@@ -1,4 +1,4 @@
-import ProfilePage from "@/features/profilPage/ProfilePage"
+import ProfilePage from "@/features/profilPage/Profile"
 import SearchPage from "@/features/search/SearchPage"
 import SideBar from "@/features/sidebar/SideBar"
 import { Box, Grid, GridItem } from "@chakra-ui/react"
