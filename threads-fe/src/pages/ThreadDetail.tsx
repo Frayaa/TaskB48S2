@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react"
 import { ThreadCard } from "../features/thread/component"
 import SideBar from "@/features/sidebar/SideBar"
-import ProfilePage from "@/features/profilPage/Profile"
+import ProfilePage from "@/features/profilPage/ProfilePage"
 import useReply from "@/hooks/useReply"
 import UseThreadDetail from "@/hooks/useThreadDetail"
 
@@ -77,7 +77,8 @@ const ThreadDetail = () => {
               </form>
 
               <Box display="flex" flexDirection="column" gap={5} mt="8">
-                {Array.isArray(replies) && replies.length > 0 &&
+                {Array.isArray(replies) &&
+                  replies.length > 0 &&
                   replies?.map((reply) => {
                     return (
                       <Box

@@ -1,11 +1,7 @@
-import ProfilePage from "@/features/profilPage/Profile"
+import ProfilePage from "@/features/profilPage/ProfilePage"
 import SearchPage from "@/features/search/SearchPage"
 import SideBar from "@/features/sidebar/SideBar"
-import {
-  Box,
-  Grid,
-  GridItem,
-} from "@chakra-ui/react"
+import { Box, Grid, GridItem } from "@chakra-ui/react"
 
 export default function Search() {
   return (
@@ -15,7 +11,7 @@ export default function Search() {
           <SideBar />
         </GridItem>
         <GridItem colSpan={5}>
-         <SearchPage/>
+          <SearchPage />
         </GridItem>
         <GridItem colSpan={4}>
           <Box

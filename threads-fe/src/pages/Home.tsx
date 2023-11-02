@@ -1,4 +1,4 @@
-import ProfilePage from "@/features/profilPage/Profile"
+import ProfilePage from "@/features/profilPage/ProfilePage"
 import SideBar from "@/features/sidebar/SideBar"
 import { ThreadCard } from "@/features/thread/component"
 import useFetchThreads from "@/hooks/useFetchThreads"
