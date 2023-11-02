@@ -13,7 +13,6 @@ import {
   HStack,
   GridItem,
 } from "@chakra-ui/react"
-import { useEffect } from "react"
 import { BiSolidImageAdd } from "react-icons/bi"
 
 export default function Home() {
@@ -25,7 +24,6 @@ export default function Home() {
     handleSubmit,
     inputFileRef,
   } = useFetchThreads()
-
 
   // useEffect(() => {
   //   fetchData()
@@ -120,7 +118,6 @@ export default function Home() {
           </Box>
         </GridItem>
       </Grid>
-   
 
       {/* </Box> */}
     </>

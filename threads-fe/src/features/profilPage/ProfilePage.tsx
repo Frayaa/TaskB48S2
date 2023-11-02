@@ -15,7 +15,7 @@ import {
   HStack,
   Card,
 } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import {
   AiFillFacebook,
   AiFillGithub,
@@ -24,19 +24,21 @@ import {
 } from "react-icons/ai"
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { IFollow } from "@/interfaces/follow"
 
-interface FollowButtonProps {
-  id: number;
-  followedUserId: number;
-  isFollowed: boolean;
-}
+// interface FollowButtonProps {
+//   id: number;
+//   followedUserId: number;
+//   isFollowed: boolean;
+// }
+
 export default function ProfilePage() {
   const { user, getUserRandom } = useUser()
+  const { handleFollow } = useFollow()
   const auth = useSelector((state: RootState) => state.auth)
   const follows = useSelector((state: RootState) => state.follow)
   // const [isFollowed, setIsFollowed] = useState(props.is_followed)
 
+  console.log(handleFollow)
 
   useEffect(() => {
     getUserRandom()
